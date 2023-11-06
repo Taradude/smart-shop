@@ -50,13 +50,19 @@
     "parserOptions": {
       "ecmaVersion": 2020
     },
-    "rules": {}
+    "rules": {
+      "prettier/prettier": 0
+    }
   },
   "browserslist": [
     "> 1%",
     "last 2 versions",
     "not dead"
   ],
+  "prettier": {    "trailingComma": "es5",
+    "tabWidth": 2,    "semi": false,
+    "singleQuote": true,    "printWidth": 110
+  },
   "gitHooks": {
     "pre-commit": "lint-staged"
   },

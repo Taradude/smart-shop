@@ -1,18 +1,28 @@
 <template>
   <div class="main-layout">
-    <HeaderView />
-    <router-view />
+    <TheHeader />
+    <div class="main-layout__page">
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import HeaderView from '@/components/HeaderView.vue'
+import TheHeader from '@/components/TheHeader.vue'
 
 @Component({
   components: {
-    HeaderView,
+    TheHeader,
   },
 })
 export default class MainLayout extends Vue {}
 </script>
+
+<style lang="scss">
+.main-layout {
+  &__page {
+    padding: 64px 48px;
+  }
+}
+</style>

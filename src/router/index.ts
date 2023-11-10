@@ -1,22 +1,27 @@
-import Vue from "vue";
-import VueRouter, { RouteConfig } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import Vue from 'vue'
+import VueRouter, { RouteConfig } from 'vue-router'
+import MainLayout from '@/layouts/MainLayout.vue'
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
   {
-    path: "/",
-    name: "home",
-    component: HomeView,
+    path: '/',
+    component: MainLayout,
+    children: [
+      {
+        path: '',
+        name: 'HomeView',
+        component: () => import('@/views/HomeView.vue'),
+      },
+    ],
   },
-  
-];
+]
 
 const router = new VueRouter({
-  mode: "history",
+  mode: 'history',
   base: process.env.BASE_URL,
   routes,
-});
+})
 
-export default router;
+export default router

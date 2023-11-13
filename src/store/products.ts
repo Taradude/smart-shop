@@ -1,12 +1,14 @@
 import { instanceApi } from '@/api/mainInstance'
 
+import { IProduct } from '@/interfaces/products'
+
 export default {
   namespaced: true,
   state: {
     productsList: [],
   },
   mutations: {
-    setProducts(state: any, newProductsList: any) {
+    setProducts(state: any, newProductsList: IProduct[]) {
       state.productsList = [...newProductsList]
     },
   },

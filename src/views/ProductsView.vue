@@ -1,6 +1,6 @@
 <template>
   <div class="products-view">
-    <div v-for="item in productsList" :key="item.id" class="product" @click="redirect">
+    <div v-for="item in productsList" :key="item.id" class="product" @click="goToItemPage">
       <h3 class="product__title">{{ item.title }}</h3>
       <p class="product__brand">Brand: {{ item.brand }}</p>
       <img class="product__img" :src="item.images[0]" alt="photo" />
@@ -18,8 +18,8 @@ export default class ProductsView extends Vue {
   get productsList(): any {
     return this.$store.state.products.productsList
   }
-  redirect(): void {
-    this.$router.push('product-item')
+  goToItemPage(): void {
+    this.$router.push({ name: 'ProductItemView' })
   }
 }
 </script>

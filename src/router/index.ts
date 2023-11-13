@@ -20,8 +20,8 @@ const routes: Array<RouteConfig> = [
         component: () => import('@/views/ProductsView.vue'),
       },
       {
-        path: '/product-item',
-        name: 'Product-view-item',
+        path: '/product/',
+        name: 'ProductItemView',
         component: () => import('@/views/ProductItemView.vue'),
       },
     ],

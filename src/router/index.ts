@@ -20,9 +20,14 @@ const routes: Array<RouteConfig> = [
         component: () => import('@/views/ProductsView.vue'),
       },
       {
-        path: '/product/',
+        path: '/product/:name',
         name: 'ProductItemView',
         component: () => import('@/views/ProductItemView.vue'),
+      },
+      {
+        path: '/cart',
+        name: 'CartView',
+        component: () => import('@/views/CartView.vue'),
       },
     ],
   },

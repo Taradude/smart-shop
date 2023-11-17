@@ -16,6 +16,9 @@ input {
   outline: none;
   background-color: transparent;
 }
+button {
+  cursor: pointer;
+}
 
 a {
   color: $white;

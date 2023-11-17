@@ -1,8 +1,10 @@
 <template>
   <header class="header">
+    <img id="logo" src="@/assets/logo.png" alt="logo" />
     <nav class="header__nav">
-      <router-link :to="{ name: 'HomeView' }"> Home </router-link>
-      <router-link :to="{ name: 'ProductsView' }"> Products</router-link>
+      <router-link :to="{ name: 'HomeView' }"> <h3>Home</h3> </router-link>
+      <router-link :to="{ name: 'ProductsView' }"> <h3>Products</h3></router-link>
+      <router-link :to="{ name: 'CartView' }"> <h3>Cart</h3></router-link>
     </nav>
   </header>
 </template>
@@ -14,15 +16,22 @@ import { Vue, Component } from 'vue-property-decorator'
 export default class TheHeader extends Vue {}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+#logo {
+  height: 100px;
+  width: 360px;
+}
 .header {
   padding: 32px 48px;
   background-color: $blue;
+  border-radius: 64px;
+  width: 98%;
+  margin: 0 auto;
 
   &__nav {
     display: flex;
     justify-content: center;
-    gap: 16px;
+    gap: 25px;
   }
 }
 </style>

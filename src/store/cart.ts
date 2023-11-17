@@ -1,16 +1,13 @@
-import products from './products'
+import { IProduct } from '@/interfaces/products'
 
 export default {
   namespaced: true,
   state: {
-    productsList: [],
-    currentProduct: {
-      title: '',
-    },
+    cartList: [],
   },
   mutations: {
-    setCurrentProduct(state: any, product: string) {
-      state.productsList.push(product)
+    addProduct(state: any, product: IProduct) {
+      state.cartList.push(product)
     },
   },
   actions: {},

@@ -40,7 +40,7 @@ export default class ProductItemView extends Vue {
     return this.currentProduct.images.length > 1
   }
   addToCart(): void {
-    this.$store.commit('cart/setCurrentProduct', this.currentProduct)
+    this.$store.commit('cart/addProduct', this.currentProduct)
   }
   prevSlide(): void {
     this.currentSlide =
@@ -67,8 +67,7 @@ export default class ProductItemView extends Vue {
 }
 .img-slider {
   width: 720px;
-  // height: 550px;
-  // border: 6px solid $black;
+
   border-radius: 25px;
   padding: 10px;
   margin: 0 auto;

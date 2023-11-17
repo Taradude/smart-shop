@@ -1,10 +1,6 @@
 <template>
   <header class="header">
-    <img
-      id="logo"
-      src="https://smart-shop-ua.com.ua/image/catalog/B974BF4F-E858-4496-98B3-565C2A7FCFCE-1681596281.png"
-      alt=""
-    />
+    <img id="logo" src="@/assets/logo.png" alt="logo" />
     <nav class="header__nav">
       <router-link :to="{ name: 'HomeView' }"> <h3>Home</h3> </router-link>
       <router-link :to="{ name: 'ProductsView' }"> <h3>Products</h3></router-link>

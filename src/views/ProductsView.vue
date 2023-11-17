@@ -2,11 +2,10 @@
   <div class="products-view">
     <div v-for="item in productsList" :key="item.id" class="product" @click="goToItemPage(item)">
       <h3 class="product__title">{{ item.title }}</h3>
-      <!-- <p class="product__brand">Brand: {{ item.brand }}</p> -->
       <img class="product__img" :src="item.images[0]" alt="photo" />
       <p class="product__rating">⭐Rating : {{ item.rating }}</p>
       <p class="product__price">💲Price : ${{ item.price }}</p>
-      <!-- <BaseButton text="Buy" /> -->
+      <BaseButton text="Buy" @click.native="addToCart(item)" />
     </div>
   </div>
 </template>
@@ -24,6 +23,9 @@ import BaseButton from '@/components/BaseComponents/BaseButton.vue'
 export default class ProductsView extends Vue {
   get productsList(): any {
     return this.$store.state.products.productsList
+  }
+  addToCart(product: IProduct): void {
+    this.$store.commit('cart/addProduct', product)
   }
   goToItemPage(product: IProduct): void {
     this.$store.commit('products/setCurrentProduct', product)
@@ -44,7 +46,6 @@ export default class ProductsView extends Vue {
   gap: 16px;
 }
 .product {
-  // padding: 5px;
   position: relative;
   overflow-x: hidden;
   border: 3px solid $black;

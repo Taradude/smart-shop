@@ -9,8 +9,19 @@ import { Component, Vue } from 'vue-property-decorator'
 
 @Component
 export default class App extends Vue {
+  unSubscribe!: () => void
+  synchronizeStateAndStore() {
+    this.unSubscribe = this.$store.subscribe((mutatation: any, state: any) => {
+      localStorage.setItem('store', JSON.stringify(state))
+    })
+  }
   created() {
     this.$store.dispatch('products/getAllProducts')
+    this.synchronizeStateAndStore()
+  }
+
+  destroyed() {
+    this.unSubscribe()
   }
 }
 </script>

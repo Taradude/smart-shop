@@ -5,7 +5,7 @@
       <img class="product__img" :src="item.images[0]" alt="photo" />
       <p class="product__rating">⭐Rating : {{ item.rating }}</p>
       <p class="product__price">💲Price : ${{ item.price }}</p>
-      <BaseButton text="Buy" @click.native="addToCart(item)" />
+      <BaseButton text="Buy" @click.native.stop="addToCart(item)" />
     </div>
   </div>
 </template>
@@ -56,6 +56,7 @@ export default class ProductsView extends Vue {
 
   &:hover {
     transform: scale(1.05);
+    cursor: pointer;
   }
 
   &__title {

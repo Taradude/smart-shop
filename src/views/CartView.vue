@@ -27,12 +27,6 @@ export default class CartView extends Vue {
   }
   increment(productId: number) {
     this.$store.commit('cart/increment', productId)
-    this.$nextTick(() => {
-      const updatedCount = this.$store.state.cart.cartList.find(
-        (item: IProduct) => item.id === productId
-      ).count
-      console.log('Updated Count:', updatedCount)
-    })
   }
   decrement(productId: number) {
     this.$store.commit('cart/decrement', productId)

@@ -1,5 +1,4 @@
 import { IProduct } from '@/interfaces/products'
-import Vue from 'vue'
 
 export default {
   namespaced: true,
@@ -10,22 +9,25 @@ export default {
     increment(state: any, itemId: number) {
       const foundedItem = state.cartList.find((element: IProduct) => element.id === itemId)
       if (foundedItem) {
-        Vue.set(foundedItem, 'count', foundedItem.count + 1)
+        foundedItem.count++
       }
     },
     decrement(state: any, itemId: number) {
       const foundedItem = state.cartList.find((element: IProduct) => element.id === itemId)
-      if (foundedItem.count > 0) {
-        Vue.set(foundedItem, 'count', foundedItem.count - 1)
+      if (foundedItem.count > 1) {
+        foundedItem.count--
       }
     },
     addProduct(state: any, product: IProduct) {
       const existingProduct = state.cartList.find((p: IProduct) => p.id === product.id)
       if (existingProduct) {
-        Vue.set(existingProduct, 'count', existingProduct.count + 1)
+        existingProduct.count++
       } else {
-        product.count = 1
-        state.cartList.push(product)
+        const productCopy = { ...product }
+        productCopy.count = 1
+        productCopy.count = 1
+        state.cartList.push(productCopy)
+        // Vue.set(product, 'count', 1)
       }
     },
     deleteProduct(state: any, productId: number) {

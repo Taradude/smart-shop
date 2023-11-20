@@ -8,7 +8,12 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {},
   getters: {},
-  mutations: {},
+  mutations: {
+    initializeStore(state: any) {
+      const savedState = localStorage.getItem('store')
+      if (savedState) this.replaceState(JSON.parse(savedState))
+    },
+  },
   actions: {},
   modules: { products, cart },
 })

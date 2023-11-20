@@ -1,8 +1,11 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import MainLayout from '@/layouts/MainLayout.vue'
+import store from '@/store'
 
 Vue.use(VueRouter)
+
+store.commit('initializeStore')
 
 const routes: Array<RouteConfig> = [
   {

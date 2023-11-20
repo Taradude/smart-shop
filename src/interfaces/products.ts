@@ -9,4 +9,5 @@ export interface IProduct {
   rating: number
   stock: number
   title: string
+  count?: number
 }

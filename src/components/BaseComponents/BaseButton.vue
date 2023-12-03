@@ -15,10 +15,10 @@ export default class BaseButton extends Vue {
 .base-button {
   margin: 5px;
   padding: 12px;
-  background-color: $orange;
+  background-color: $blue;
   font-size: 16px;
   border-radius: 15px;
   font-weight: bold;
-  color: $black;
+  color: $white;
 }
 </style>

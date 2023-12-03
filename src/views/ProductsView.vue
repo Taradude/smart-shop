@@ -5,7 +5,7 @@
       <img class="product__img" :src="item.images[0]" alt="photo" />
       <p class="product__rating">⭐Rating : {{ item.rating }}</p>
       <p class="product__price">💲Price : ${{ item.price }}</p>
-      <BaseButton text="Buy" @click.native.stop="addToCart(item)" />
+      <BaseButton class="product__button" text="Buy" @click.native.stop="addToCart(item)" />
     </div>
   </div>
 </template>
@@ -42,17 +42,24 @@ export default class ProductsView extends Vue {
   width: 90%;
   margin: 0 auto;
   display: grid;
+  justify-content: center;
   grid-template-columns: repeat(auto-fill, minmax(250px, 300px));
   gap: 16px;
 }
+
 .product {
-  position: relative;
+  display: grid;
+  grid-template-rows: auto;
+  justify-content: center;
+  justify-items: center;
   overflow-x: hidden;
   border: 3px solid $black;
   border-radius: 15px;
+  width: 300px;
   height: 450px;
   overflow: hidden;
-  transition: all 0.3s ease;
+  padding: 10px;
+  transition: transform 0.3s ease-in-out;
 
   &:hover {
     transform: scale(1.05);
@@ -64,13 +71,23 @@ export default class ProductsView extends Vue {
   }
 
   &__img {
-    width: 60%;
-    height: 60%;
-    text-align: center;
+    width: 100%;
+    height: 200px;
     border-radius: 20px;
   }
+
   &__price {
     font-weight: bold;
+  }
+
+  &__button {
+    transition: all 0.25s ease-in-out;
+    max-height: 50px;
+  }
+
+  &__button:hover {
+    background-color: $orange;
+    color: $black;
   }
 }
 </style>

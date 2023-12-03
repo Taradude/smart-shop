@@ -2,7 +2,7 @@
   <div class="product-item-view">
     <h3 class="product-item-view__title">Brand : {{ currentProduct.title }}</h3>
     <div class="img-slider">
-      <BaseButton v-if="checkImgLength()" text="Previous" @click.native="prevSlide" />
+      <BaseButton v-if="checkImgLength()" text="Prev" @click.native="prevSlide" />
       <img
         v-for="(image, index) in currentProduct.images"
         :key="index"
@@ -16,7 +16,7 @@
     <p class="product-item-view__description">
       <strong>Description :</strong> {{ currentProduct.description }}
     </p>
-    <BaseButton text="Add to cart" @click.native="addToCart" />
+    <BaseButton class="product-item-view__button" text="Add to cart" @click.native="addToCart" />
   </div>
 </template>
 
@@ -61,31 +61,32 @@ export default class ProductItemView extends Vue {
     text-align: left;
     padding: 15px;
   }
+
   &__description:first-child {
     font-weight: bold;
   }
+  &__button {
+    transition: all 0.2s ease-in-out;
+  }
+  &__button:hover {
+    background-color: $orange;
+    color: $black;
+  }
 }
 .img-slider {
-  width: 720px;
-
+  width: 800px;
+  height: 600px;
   border-radius: 25px;
   padding: 10px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  overflow: hidden;
 
   &__img {
-    width: 100%;
-    height: 100%;
     object-fit: cover;
-    object-position: center;
-  }
-
-  &__button {
-    position: relative;
-    bottom: 50%;
-    transform: translateY(-50%);
+    max-height: 100%;
   }
 }
 </style>

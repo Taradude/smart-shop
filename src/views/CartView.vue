@@ -5,9 +5,9 @@
         {{ item.title }}
       </p>
       <p>Price: ${{ item.price }}</p>
-      <button @click="increment(item.id)">➕</button>
-      <p>{{ item.count }}</p>
       <button @click="decrement(item.id)">➖</button>
+      <p>{{ item.count }}</p>
+      <button @click="increment(item.id)">➕</button>
       <button @click="deleteProduct(item.id)">X</button>
     </div>
   </div>
@@ -38,16 +38,17 @@ export default class CartView extends Vue {
 .cart-view {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   gap: 48px;
 
   .cart-item {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
+    height: 100px;
+    padding: 12px;
     border: 2px solid $black;
     border-radius: 20px;
     flex-grow: 1;
+    align-items: center; /* Вирівнювання по вертикалі */
 
     p {
       margin: 0;
@@ -59,10 +60,19 @@ export default class CartView extends Vue {
       cursor: pointer;
       border: none;
       background-color: transparent;
+      transition: all 0.2s ease-in-out;
 
       &:hover {
-        background-color: #ff6347;
+        transform: scale(1.2);
       }
+    }
+
+    /* Просто вирівнюйте елементи всередині .cart-item без додаткового контейнера */
+    & > * {
+      flex: 1;
+      margin-right: 10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 }

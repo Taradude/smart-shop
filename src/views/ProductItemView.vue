@@ -53,10 +53,18 @@ export default class ProductItemView extends Vue {
     this.$store.commit('cart/addProduct', this.currentProduct)
   }
   prevSlide(): void {
-    if (this.currentSlide > 0) this.currentSlide--
+    if (this.currentSlide === 0) {
+      this.currentSlide = this.currentProduct.images.length - 1
+    } else {
+      this.currentSlide--
+    }
   }
   nextSlide(): void {
-    if (this.currentSlide < this.currentProduct.images.length - 1) this.currentSlide++
+    if (this.currentSlide === this.currentProduct.images.length - 1) {
+      this.currentSlide = 0
+    } else {
+      this.currentSlide++
+    }
   }
   onPageChange(value: number): void {
     this.currentSlide = value

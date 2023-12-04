@@ -7,7 +7,6 @@
         class="carousel"
         :per-page="1"
         :mouse-drag="true"
-        :navigationEnabled="true"
         :value="currentSlide"
         :loop="true"
         @page-change="onPageChange"

@@ -100,13 +100,7 @@ h3 {
     transform: scale(1.1);
   }
 }
-// .top {
-//   display: flex;
-//   flex-direction: row;
-//   align-items: center;
-//   justify-content: space-between;
-//   flex-wrap: wrap;
-// }
+
 .bottom {
   width: 90%;
   display: flex;

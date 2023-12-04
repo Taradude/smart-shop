@@ -5,10 +5,11 @@
         <router-link :to="{ name: 'HomeView' }"
           ><img id="logo" src="@/assets/robot.png" alt="logo"
         /></router-link>
-        <router-link :to="{ name: 'HomeView' }"> <h3>Home</h3> </router-link>
         <input id="search" type="text" placeholder="Search" />
-        <router-link :to="{ name: 'ProductsView' }"> <h3>Products</h3></router-link>
+
         <div class="login-cart-wrap">
+          <router-link :to="{ name: 'HomeView' }"> <h3>Home</h3> </router-link>
+          <router-link :to="{ name: 'ProductsView' }"> <h3>Products</h3></router-link>
           <router-link :to="{ name: 'LoginView' }"
             ><img id="login" src="@/assets/user.png" alt="" />
           </router-link>
@@ -55,6 +56,11 @@ export default class TheHeader extends Vue {
   padding: 32px 48px;
   background-color: $orange;
   text-align: left;
+  a {
+    display: flex;
+    align-items: center;
+    margin-left: 12px;
+  }
   a:hover {
     text-decoration: underline $black;
   }
@@ -83,11 +89,11 @@ h3 {
 }
 .login-cart-wrap {
   display: flex;
+  flex-wrap: wrap;
 }
 
 #cart,
 #login {
-  margin-left: 5px;
   width: 50px;
   transition: all 0.25s ease-in-out;
   &:hover {
@@ -102,8 +108,10 @@ h3 {
 //   flex-wrap: wrap;
 // }
 .bottom {
+  width: 90%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: flex-end;
 }
 #search {
   background-color: $blue;
@@ -117,7 +125,6 @@ h3 {
     opacity: 0.8;
     font-weight: bold;
     font-size: 16px;
-    text-align: center;
   }
 }
 

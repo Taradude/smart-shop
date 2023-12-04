@@ -3,14 +3,20 @@
     <h3 class="product-item-view__title">Brand : {{ currentProduct.title }}</h3>
     <div class="img-slider">
       <BaseButton v-if="checkImgLength()" text="Prev" @click.native="prevSlide" />
-      <img
-        v-for="(image, index) in currentProduct.images"
-        :key="index"
-        class="img-slider__img"
-        v-show="index === currentSlide"
-        :src="image"
-        alt="photo"
-      />
+      <carousel
+        class="carousel"
+        :per-page="1"
+        :mouse-drag="true"
+        :value="currentSlide"
+        :loop="true"
+        @page-change="onPageChange"
+      >
+        <slide v-for="img in currentProduct.images" :key="img">
+          <div class="slide-content">
+            <img :src="img" alt="Product image" />
+          </div>
+        </slide>
+      </carousel>
       <BaseButton v-if="checkImgLength()" text="Next" @click.native="nextSlide" />
     </div>
     <p class="product-item-view__description">
@@ -24,10 +30,13 @@
 import { Component, Vue } from 'vue-property-decorator'
 import BaseButton from '@/components/BaseComponents/BaseButton.vue'
 import { IProduct } from '@/interfaces/products'
+import { Carousel, Slide } from 'vue-carousel'
 
 @Component({
   components: {
     BaseButton,
+    Carousel,
+    Slide,
   },
 })
 export default class ProductItemView extends Vue {
@@ -43,12 +52,21 @@ export default class ProductItemView extends Vue {
     this.$store.commit('cart/addProduct', this.currentProduct)
   }
   prevSlide(): void {
-    this.currentSlide =
-      (this.currentSlide - 1 + this.currentProduct.images.length) % this.currentProduct.images.length
+    if (this.currentSlide === 0) {
+      this.currentSlide = this.currentProduct.images.length - 1
+    } else {
+      this.currentSlide--
+    }
   }
-
   nextSlide(): void {
-    this.currentSlide = (this.currentSlide + 1) % this.currentProduct.images.length
+    if (this.currentSlide === this.currentProduct.images.length - 1) {
+      this.currentSlide = 0
+    } else {
+      this.currentSlide++
+    }
+  }
+  onPageChange(value: number): void {
+    this.currentSlide = value
   }
 }
 </script>
@@ -74,19 +92,25 @@ export default class ProductItemView extends Vue {
   }
 }
 .img-slider {
-  width: 800px;
-  height: 600px;
-  border-radius: 25px;
-  padding: 10px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  overflow: hidden;
+  width: 100%;
+}
+.carousel {
+  width: 100%;
+  max-width: 600px;
+}
+.slide-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
 
-  &__img {
-    object-fit: cover;
-    max-height: 100%;
-  }
+img {
+  max-width: 100%;
+  max-height: 500px;
 }
 </style>

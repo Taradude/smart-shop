@@ -1,13 +1,21 @@
 <template>
   <header class="header">
     <div class="top">
-      <nav class="header__nav">
-        <router-link :to="{ name: 'HomeView' }"
-          ><img id="logo" src="@/assets/robot.png" alt="logo"
-        /></router-link>
-        <input id="search" type="text" placeholder="Search" />
+      <nav>
+        <router-link to=""> Home Page</router-link>
+        <router-view />
+      </nav>
+      <div class="header__top">
+        <nav class="header__nav">
+          <router-link :to="{ name: 'HomeView' }"
+            ><img id="logo" src="@/assets/robot.png" alt="logo"
+          /></router-link>
+          <h1>Smart Shop</h1>
+          <div class="input-wrap">
+            <input id="search" type="text" placeholder="Search" />
+            <button class="search-button"><img src="@/assets/search.png" alt="" /></button>
+          </div>
 
-        <div class="login-cart-wrap">
           <router-link :to="{ name: 'HomeView' }"> <h3>Home</h3> </router-link>
           <router-link :to="{ name: 'ProductsView' }"> <h3>Products</h3></router-link>
           <router-link :to="{ name: 'LoginView' }"
@@ -16,15 +24,20 @@
           <router-link :to="{ name: 'CartView' }">
             <img id="cart" src="@/assets/shopping-cart2.png" alt="" /> <span>{{ cartItemsLength }}</span>
           </router-link>
-        </div>
-      </nav>
+        </nav>
+      </div>
     </div>
     <div class="bottom">
-      <div>
+      <div class="bottom__select">
+        <select name="" id="">
+          <option value="Category" selected>Category</option>
+        </select>
+      </div>
+      <div class="bottom__price">
         <p>Price from:</p>
         <BaseInputRange />
       </div>
-      <div>
+      <div class="bottom__price">
         <p>Price to:</p>
         <BaseInputRange />
       </div>
@@ -113,12 +126,30 @@ h3 {
   padding: 12px;
   border-radius: 15px;
   width: 30%;
+  background-color: $blue;
 
   &::placeholder {
     color: $white;
     opacity: 0.8;
     font-weight: bold;
     font-size: 16px;
+  }
+}
+.search-button {
+  position: absolute;
+  top: 0;
+  right: 12px;
+  bottom: 0;
+  color: $orange;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 0 15px 15px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img {
+    width: 25px;
   }
 }
 

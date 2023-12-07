@@ -59,12 +59,14 @@ export default class ProductsView extends Vue {
 
 <style lang="scss" scoped>
 .products-view {
-  width: 90%;
-  margin: 0 auto;
-  display: grid;
-  justify-content: center;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 300px));
-  gap: 16px;
+  &__list {
+    width: 90%;
+    margin: 0 auto;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 300px));
+    gap: 16px;
+  }
 }
 
 .product {
@@ -107,57 +109,6 @@ export default class ProductsView extends Vue {
   &__button:hover {
     background-color: $orange;
     color: $black;
-    &__list {
-      width: 90%;
-      margin: 0 auto;
-      display: grid;
-      justify-content: center;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 300px));
-      gap: 16px;
-      .product {
-        display: grid;
-        grid-template-rows: auto;
-        justify-content: center;
-        justify-items: center;
-        overflow-x: hidden;
-        border: 3px solid $black;
-        border-radius: 15px;
-        width: 300px;
-        height: 450px;
-        overflow: hidden;
-        padding: 10px;
-        transition: transform 0.3s ease-in-out;
-
-        &:hover {
-          transform: scale(1.05);
-          cursor: pointer;
-        }
-
-        &__title {
-          padding: 10px;
-        }
-
-        &__img {
-          width: 100%;
-          height: 200px;
-          border-radius: 20px;
-        }
-
-        &__price {
-          font-weight: bold;
-        }
-
-        &__button {
-          transition: all 0.25s ease-in-out;
-          max-height: 50px;
-        }
-
-        &__button:hover {
-          background-color: $orange;
-          color: $black;
-        }
-      }
-    }
   }
 }
 </style>

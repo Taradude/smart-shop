@@ -1,10 +1,6 @@
 <template>
   <header class="header">
     <div class="top">
-      <nav>
-        <router-link to=""> Home Page</router-link>
-        <router-view />
-      </nav>
       <div class="header__top">
         <nav class="header__nav">
           <router-link :to="{ name: 'HomeView' }"
@@ -72,7 +68,6 @@ export default class TheHeader extends Vue {
   a {
     display: flex;
     align-items: center;
-    margin-left: 12px;
   }
   a:hover {
     text-decoration: underline $black;
@@ -82,6 +77,7 @@ export default class TheHeader extends Vue {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    align-items: center;
     gap: 25px;
   }
 }
@@ -108,6 +104,7 @@ h3 {
 #cart,
 #login {
   width: 50px;
+  height: 50px;
   transition: all 0.25s ease-in-out;
   &:hover {
     transform: scale(1.1);
@@ -115,17 +112,37 @@ h3 {
 }
 
 .bottom {
-  width: 90%;
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 48px;
+
+  &__select {
+    flex-shrink: 0;
+  }
+  select {
+    background-color: $blue;
+    padding: 12px;
+    color: $white;
+    font-weight: bold;
+    border-radius: 12px;
+    option {
+      border-radius: 12px;
+    }
+  }
+}
+
+.input-wrap {
+  width: 30%;
+  position: relative;
 }
 #search {
   background-color: $blue;
   color: white;
+  width: 100%;
+  height: 100%;
   padding: 12px;
   border-radius: 15px;
-  width: 30%;
   background-color: $blue;
 
   &::placeholder {
@@ -148,6 +165,7 @@ h3 {
   display: flex;
   align-items: center;
   justify-content: center;
+
   img {
     width: 25px;
   }

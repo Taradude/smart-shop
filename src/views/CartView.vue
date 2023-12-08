@@ -48,7 +48,7 @@ export default class CartView extends Vue {
     border: 2px solid $black;
     border-radius: 20px;
     flex-grow: 1;
-    align-items: center; /* Вирівнювання по вертикалі */
+    align-items: center;
 
     p {
       margin: 0;
@@ -67,7 +67,6 @@ export default class CartView extends Vue {
       }
     }
 
-    /* Просто вирівнюйте елементи всередині .cart-item без додаткового контейнера */
     & > * {
       flex: 1;
       margin-right: 10px;

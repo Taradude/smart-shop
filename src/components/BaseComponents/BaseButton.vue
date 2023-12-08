@@ -1,5 +1,5 @@
 <template>
-  <button class="base-button">{{ text }}</button>
+  <button :disabled="isDisabled" class="base-button">{{ text }}</button>
 </template>
 
 <script lang="ts">
@@ -8,6 +8,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 @Component
 export default class BaseButton extends Vue {
   @Prop({ default: '' }) text!: string
+  @Prop({ default: false }) isDisabled!: boolean
 }
 </script>
 

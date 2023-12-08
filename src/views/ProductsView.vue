@@ -1,13 +1,5 @@
 <template>
   <div class="products-view">
-    <!-- <<<<<<< Updated upstream
-    <div v-for="item in productsList" :key="item.id" class="product" @click="goToItemPage(item)">
-      <h3 class="product__title">{{ item.title }}</h3>
-      <img class="product__img" :src="item.images[0]" alt="photo" />
-      <p class="product__rating">⭐Rating : {{ item.rating }}</p>
-      <p class="product__price">💲Price : ${{ item.price }}</p>
-      <BaseButton class="product__button" text="Buy" @click.native.stop="addToCart(item)" />
-======= -->
     <div class="products-view__list">
       <div v-for="item in productsList" :key="item.id" class="product" @click="goToItemPage(item)">
         <h3 class="product__title">{{ item.title }}</h3>
@@ -18,8 +10,8 @@
       </div>
     </div>
     <div class="products-view__buttons">
-      <BaseButton text="Previous page" @click.native="prevPage" />
-      <BaseButton text="Next page" @click.native="nextPage" />
+      <BaseButton :isDisabled="isPrevButtonDisabled" text="Previous page" @click.native="prevPage" />
+      <BaseButton :isDisabled="isNextButtonDisabled" text="Next page" @click.native="nextPage" />
     </div>
   </div>
 </template>
@@ -35,8 +27,20 @@ import BaseButton from '@/components/BaseComponents/BaseButton.vue'
   },
 })
 export default class ProductsView extends Vue {
-  get productsList(): any {
+  get productsList(): IProduct[] {
     return this.$store.state.products.productsList
+  }
+  get currentPage(): number {
+    return this.$store.state.products.currentPage
+  }
+  get isPrevButtonDisabled(): boolean {
+    return this.currentPage <= 1
+  }
+  get isNextButtonDisabled(): boolean {
+    return (
+      this.currentPage >=
+      Math.floor(this.$store.state.products.productsAmount / this.$store.state.products.productsLimit)
+    )
   }
   addToCart(product: IProduct): void {
     this.$store.commit('cart/addProduct', product)

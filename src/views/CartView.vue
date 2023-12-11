@@ -1,13 +1,21 @@
 <template>
   <div class="cart-view">
+    <div class="cart-view__header">
+      <p>Name</p>
+      <p>Item price</p>
+      <p>Quantity</p>
+      <p>Delete item</p>
+    </div>
     <div v-for="item in cartList" :key="item.id" class="cart-item">
       <p>
         {{ item.title }}
       </p>
       <p>Price: ${{ item.price }}</p>
-      <button @click="decrement(item.id)">➖</button>
-      <p>{{ item.count }}</p>
-      <button @click="increment(item.id)">➕</button>
+      <div class="cart-item__buttons">
+        <button @click="decrement(item.id)">➖</button>
+        <p>{{ item.count }}</p>
+        <button @click="increment(item.id)">➕</button>
+      </div>
       <button @click="deleteProduct(item.id)">X</button>
     </div>
   </div>
@@ -41,9 +49,22 @@ export default class CartView extends Vue {
   flex-wrap: wrap;
   gap: 48px;
 
+  &__header {
+    display: flex;
+    border: 2px solid $black;
+    border-radius: 20px;
+    align-items: center;
+
+    p {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
   .cart-item {
     display: flex;
-    height: 100px;
+    height: 84px;
     padding: 12px;
     border: 2px solid $black;
     border-radius: 20px;
@@ -53,7 +74,11 @@ export default class CartView extends Vue {
     p {
       margin: 0;
     }
-
+    &__buttons {
+      display: flex;
+      gap: 64px;
+      justify-content: center;
+    }
     button {
       font-size: 20px;
       font-weight: bold;
@@ -69,7 +94,6 @@ export default class CartView extends Vue {
 
     & > * {
       flex: 1;
-      margin-right: 10px;
       overflow: hidden;
       text-overflow: ellipsis;
     }

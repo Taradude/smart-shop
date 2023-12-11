@@ -71,6 +71,13 @@ export default class ProductsView extends Vue {
     grid-template-columns: repeat(auto-fill, minmax(250px, 300px));
     gap: 16px;
   }
+  &__buttons {
+    padding: 16px;
+  }
+  &__buttons > button:disabled {
+    background-color: $grey;
+    cursor: default;
+  }
 }
 
 .product {

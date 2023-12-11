@@ -82,10 +82,6 @@ export default class TheHeader extends Vue {
   }
 }
 
-h3 {
-  color: $blue;
-}
-
 #logo {
   height: 180px;
   position: absolute;
@@ -137,7 +133,6 @@ h3 {
   position: relative;
 }
 #search {
-  background-color: $blue;
   color: white;
   width: 100%;
   height: 100%;

@@ -11,13 +11,14 @@
     </div>
     <div class="products-view__buttons">
       <BaseButton :isDisabled="isPrevButtonDisabled" text="Previous page" @click.native="prevPage" />
+      <div v-for="item in pagesAmount" :key="item" @click="goToPage(item)">{{ item }}</div>
       <BaseButton :isDisabled="isNextButtonDisabled" text="Next page" @click.native="nextPage" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Watch } from 'vue-property-decorator'
 import { IProduct } from '@/interfaces/products'
 import BaseButton from '@/components/BaseComponents/BaseButton.vue'
 
@@ -36,11 +37,23 @@ export default class ProductsView extends Vue {
   get isPrevButtonDisabled(): boolean {
     return this.currentPage <= 1
   }
+  get pagesAmount(): number {
+    return this.$store.state.products.pagesAmount
+  }
   get isNextButtonDisabled(): boolean {
     return (
       this.currentPage >=
-      Math.floor(this.$store.state.products.productsAmount / this.$store.state.products.productsLimit)
+      Math.ceil(this.$store.state.products.productsAmount / this.$store.state.products.productsLimit)
     )
+  }
+  @Watch('currentPage')
+  watchCurrentPage() {
+    this.$route.params.currentPage = String(this.currentPage)
+    console.log(this.$route.params)
+  }
+  goToPage(page: number) {
+    this.$store.commit('products/setCurrentPage', page)
+    this.$store.dispatch('products/getProducts')
   }
   addToCart(product: IProduct): void {
     this.$store.commit('cart/addProduct', product)
@@ -73,6 +86,10 @@ export default class ProductsView extends Vue {
   }
   &__buttons {
     padding: 16px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
   }
   &__buttons > button:disabled {
     background-color: $grey;

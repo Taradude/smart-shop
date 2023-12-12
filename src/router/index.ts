@@ -1,11 +1,19 @@
 import Vue from 'vue'
-import VueRouter, { RouteConfig } from 'vue-router'
+import VueRouter, { NavigationGuardNext, RouteConfig, Route } from 'vue-router'
 import MainLayout from '@/layouts/MainLayout.vue'
 import store from '@/store'
 
 Vue.use(VueRouter)
 
 store.commit('initializeStore')
+
+const beforeEnterProducts = (to: Route, from: Route, next: NavigationGuardNext) => {
+  // to.params.currentPage = store.state.products.currentPage
+  console.log(to.params)
+  const currentPage = to.params.currentPage
+  store.commit('products/setCurrentPage', currentPage)
+  next()
+}
 
 const routes: Array<RouteConfig> = [
   {
@@ -18,9 +26,10 @@ const routes: Array<RouteConfig> = [
         component: () => import('@/views/HomeView.vue'),
       },
       {
-        path: '/products',
+        path: '/products/:currentPage',
         name: 'ProductsView',
         component: () => import('@/views/ProductsView.vue'),
+        beforeEnter: beforeEnterProducts,
       },
       {
         path: '/product/:name',

@@ -9,7 +9,7 @@ export default {
     currentProduct: {},
     currentPage: 1,
     productsAmount: 0,
-    productsLimit: 6,
+    productsLimit: 8,
   },
   mutations: {
     setProducts(state: any, newProductsList: IProduct[]) {

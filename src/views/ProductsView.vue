@@ -5,7 +5,7 @@
         <h3 class="product__title">{{ item.title }}</h3>
         <img class="product__img" :src="item.images[0]" alt="photo" />
         <p class="product__rating">⭐Rating : {{ item.rating }}</p>
-        <p class="product__price">💲Price : ${{ item.price }}</p>
+        <p class="product__price">Price : ${{ item.price }}</p>
         <BaseButton class="product__button" text="Buy" @click.native.stop="addToCart(item)" />
       </div>
     </div>

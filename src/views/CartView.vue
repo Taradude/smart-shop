@@ -18,26 +18,41 @@
       </div>
       <button @click="deleteProduct(item.id)">X</button>
     </div>
+    <div class="cart-view__total">
+      <p><strong>Total Price:</strong> ${{ totalPrice }}</p>
+      <BaseButton text="Clear Cart" @click.native="clearCart" />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { IProduct } from '@/interfaces/products'
 import { Component, Vue } from 'vue-property-decorator'
+import BaseButton from '@/components/BaseComponents/BaseButton.vue'
 
-@Component
+@Component({
+  components: {
+    BaseButton,
+  },
+})
 export default class CartView extends Vue {
   get cartList(): IProduct[] {
     return this.$store.state.cart.cartList
   }
-  deleteProduct(itemId: number) {
-    this.$store.commit('cart/deleteProduct', itemId)
+  get totalPrice(): number {
+    return this.cartList.reduce((total, item) => total + (item?.price || 0) * (item?.count || 0), 0)
   }
   increment(productId: number) {
     this.$store.commit('cart/increment', productId)
   }
   decrement(productId: number) {
     this.$store.commit('cart/decrement', productId)
+  }
+  deleteProduct(itemId: number) {
+    this.$store.commit('cart/deleteProduct', itemId)
+  }
+  clearCart() {
+    this.$store.commit('cart/clearCart')
   }
 }
 </script>
@@ -61,6 +76,14 @@ export default class CartView extends Vue {
       text-overflow: ellipsis;
     }
   }
+  &__total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid $black;
+    padding: 12px;
+    border-radius: 20px;
+  }
 
   .cart-item {
     display: flex;
@@ -75,6 +98,8 @@ export default class CartView extends Vue {
       margin: 0;
     }
     &__buttons {
+      height: 100%;
+      align-items: center;
       display: flex;
       gap: 64px;
       justify-content: center;

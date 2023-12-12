@@ -3,12 +3,14 @@
 $font-family-default: 'Roboto', sans-serif;
 
 h1 {
+  color: $blue;
   font-family: $font-family-default;
   font-size: 56px;
   line-height: 64px;
 }
 
 h3 {
+  color: $blue;
   font-family: $font-family-default;
   font-size: 22px;
   line-height: 32px;

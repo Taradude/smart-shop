@@ -7,6 +7,9 @@ export default {
   state: {
     productsList: [],
     currentProduct: {},
+    currentPage: 1,
+    productsAmount: 0,
+    productsLimit: 8,
   },
   mutations: {
     setProducts(state: any, newProductsList: IProduct[]) {
@@ -15,11 +18,31 @@ export default {
     setCurrentProduct(state: any, newCurrentProduct: IProduct) {
       state.currentProduct = { ...newCurrentProduct }
     },
+    setProductsAmount(state: any, amount: number) {
+      state.productsAmount = amount
+    },
+    increaseCurrentPage(state: any) {
+      state.currentPage++
+    },
+    decreaseCurrentPage(state: any) {
+      state.currentPage--
+    },
   },
   actions: {
-    async getAllProducts(context: any) {
-      const { data } = await instanceApi.get('products')
-      context.commit('setProducts', data.products)
+    async getProducts({ commit, state }: any) {
+      const { data } = await instanceApi.get(
+        `products?limit=${state.productsLimit}&skip=${state.currentPage * state.productsLimit}`
+      )
+      commit('setProducts', data.products)
+      commit('setProductsAmount', data.total)
+    },
+    nextPage({ commit, dispatch }: any) {
+      commit('increaseCurrentPage')
+      dispatch('getProducts')
+    },
+    prevPage({ commit, dispatch }: any) {
+      commit('decreaseCurrentPage')
+      dispatch('getProducts')
     },
   },
 }

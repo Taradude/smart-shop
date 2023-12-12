@@ -16,7 +16,7 @@ export default class App extends Vue {
     })
   }
   created() {
-    this.$store.dispatch('products/getAllProducts')
+    this.$store.dispatch('products/getProducts')
     this.synchronizeStateAndStore()
   }
 

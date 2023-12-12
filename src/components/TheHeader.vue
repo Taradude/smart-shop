@@ -1,13 +1,17 @@
 <template>
   <header class="header">
     <div class="top">
-      <nav class="header__nav">
-        <router-link :to="{ name: 'HomeView' }"
-          ><img id="logo" src="@/assets/robot.png" alt="logo"
-        /></router-link>
-        <input id="search" type="text" placeholder="Search" />
+      <div class="header__top">
+        <nav class="header__nav">
+          <router-link :to="{ name: 'HomeView' }"
+            ><img id="logo" src="@/assets/robot.png" alt="logo"
+          /></router-link>
+          <h1>Smart Shop</h1>
+          <div class="input-wrap">
+            <input id="search" type="text" placeholder="Search" />
+            <button class="search-button"><img src="@/assets/search.png" alt="" /></button>
+          </div>
 
-        <div class="login-cart-wrap">
           <router-link :to="{ name: 'HomeView' }"> <h3>Home</h3> </router-link>
           <router-link :to="{ name: 'ProductsView' }"> <h3>Products</h3></router-link>
           <router-link :to="{ name: 'LoginView' }"
@@ -16,15 +20,20 @@
           <router-link :to="{ name: 'CartView' }">
             <img id="cart" src="@/assets/shopping-cart2.png" alt="" /> <span>{{ cartItemsLength }}</span>
           </router-link>
-        </div>
-      </nav>
+        </nav>
+      </div>
     </div>
     <div class="bottom">
-      <div>
+      <div class="bottom__select">
+        <select name="" id="">
+          <option value="Category" selected>Category</option>
+        </select>
+      </div>
+      <div class="bottom__price">
         <p>Price from:</p>
         <BaseInputRange />
       </div>
-      <div>
+      <div class="bottom__price">
         <p>Price to:</p>
         <BaseInputRange />
       </div>
@@ -59,7 +68,6 @@ export default class TheHeader extends Vue {
   a {
     display: flex;
     align-items: center;
-    margin-left: 12px;
   }
   a:hover {
     text-decoration: underline $black;
@@ -69,12 +77,9 @@ export default class TheHeader extends Vue {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    align-items: center;
     gap: 25px;
   }
-}
-
-h3 {
-  color: $blue;
 }
 
 #logo {
@@ -95,6 +100,7 @@ h3 {
 #cart,
 #login {
   width: 50px;
+  height: 50px;
   transition: all 0.25s ease-in-out;
   &:hover {
     transform: scale(1.1);
@@ -102,23 +108,61 @@ h3 {
 }
 
 .bottom {
-  width: 90%;
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 48px;
+
+  &__select {
+    flex-shrink: 0;
+  }
+  select {
+    background-color: $blue;
+    padding: 12px;
+    color: $white;
+    font-weight: bold;
+    border-radius: 12px;
+    option {
+      border-radius: 12px;
+    }
+  }
+}
+
+.input-wrap {
+  width: 30%;
+  position: relative;
 }
 #search {
-  background-color: $blue;
   color: white;
+  width: 100%;
+  height: 100%;
   padding: 12px;
   border-radius: 15px;
-  width: 30%;
+  background-color: $blue;
 
   &::placeholder {
     color: $white;
     opacity: 0.8;
     font-weight: bold;
     font-size: 16px;
+  }
+}
+.search-button {
+  position: absolute;
+  top: 0;
+  right: 12px;
+  bottom: 0;
+  color: $orange;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 0 15px 15px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 25px;
   }
 }
 

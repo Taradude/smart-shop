@@ -1,11 +1,17 @@
 <template>
   <div class="products-view">
-    <div v-for="item in productsList" :key="item.id" class="product" @click="goToItemPage(item)">
-      <h3 class="product__title">{{ item.title }}</h3>
-      <img class="product__img" :src="item.images[0]" alt="photo" />
-      <p class="product__rating">⭐Rating : {{ item.rating }}</p>
-      <p class="product__price">💲Price : ${{ item.price }}</p>
-      <BaseButton class="product__button" text="Buy" @click.native.stop="addToCart(item)" />
+    <div class="products-view__list">
+      <div v-for="item in productsList" :key="item.id" class="product" @click="goToItemPage(item)">
+        <h3 class="product__title">{{ item.title }}</h3>
+        <img class="product__img" :src="item.images[0]" alt="photo" />
+        <p class="product__rating">⭐Rating : {{ item.rating }}</p>
+        <p class="product__price">Price : ${{ item.price }}</p>
+        <BaseButton class="product__button" text="Buy" @click.native.stop="addToCart(item)" />
+      </div>
+    </div>
+    <div class="products-view__buttons">
+      <BaseButton :isDisabled="isPrevButtonDisabled" text="Previous page" @click.native="prevPage" />
+      <BaseButton :isDisabled="isNextButtonDisabled" text="Next page" @click.native="nextPage" />
     </div>
   </div>
 </template>
@@ -21,8 +27,20 @@ import BaseButton from '@/components/BaseComponents/BaseButton.vue'
   },
 })
 export default class ProductsView extends Vue {
-  get productsList(): any {
+  get productsList(): IProduct[] {
     return this.$store.state.products.productsList
+  }
+  get currentPage(): number {
+    return this.$store.state.products.currentPage
+  }
+  get isPrevButtonDisabled(): boolean {
+    return this.currentPage <= 1
+  }
+  get isNextButtonDisabled(): boolean {
+    return (
+      this.currentPage >=
+      Math.floor(this.$store.state.products.productsAmount / this.$store.state.products.productsLimit)
+    )
   }
   addToCart(product: IProduct): void {
     this.$store.commit('cart/addProduct', product)
@@ -34,17 +52,32 @@ export default class ProductsView extends Vue {
       params: { name: product.title.replace(/\s/g, '-').toLowerCase() },
     })
   }
+  prevPage(): void {
+    this.$store.dispatch('products/prevPage')
+  }
+  nextPage(): void {
+    this.$store.dispatch('products/nextPage')
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .products-view {
-  width: 90%;
-  margin: 0 auto;
-  display: grid;
-  justify-content: center;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 300px));
-  gap: 16px;
+  &__list {
+    width: 90%;
+    margin: 0 auto;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 300px));
+    gap: 16px;
+  }
+  &__buttons {
+    padding: 16px;
+  }
+  &__buttons > button:disabled {
+    background-color: $grey;
+    cursor: default;
+  }
 }
 
 .product {
@@ -84,7 +117,6 @@ export default class ProductsView extends Vue {
     transition: all 0.25s ease-in-out;
     max-height: 50px;
   }
-
   &__button:hover {
     background-color: $orange;
     color: $black;

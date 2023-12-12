@@ -41,6 +41,10 @@ export default {
         state.cartList = state.cartList.filter((element: IProduct) => element.id !== productId)
       }
     },
+    clearCart(state: any) {
+      state.cartList = []
+      state.totalItems = 0
+    },
   },
   actions: {},
 }

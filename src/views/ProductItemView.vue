@@ -22,6 +22,7 @@
     <p class="product-item-view__description">
       <strong>Description :</strong> {{ currentProduct.description }}
     </p>
+    <p class="product-item-price"><strong>Price : </strong> ${{ currentProduct.price }}</p>
     <BaseButton class="product-item-view__button" text="Add to cart" @click.native="addToCart" />
   </div>
 </template>

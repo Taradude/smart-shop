@@ -9,13 +9,11 @@ store.commit('initializeStore')
 
 const beforeEnterProducts = (to: Route, from: Route, next: NavigationGuardNext) => {
   const pagesAmount = store.state.products.pagesAmount
-  console.log(pagesAmount)
   if (!to.params.currentPage) {
     next({ params: { currentPage: '1' } })
     return
   }
   if (to.params.currentPage > pagesAmount) {
-    console.log(to.params.currentPage > pagesAmount)
     next({ name: 'ProductsView', params: { currentPage: pagesAmount } })
     return
   }

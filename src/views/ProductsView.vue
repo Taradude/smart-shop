@@ -56,11 +56,6 @@ export default class ProductsView extends Vue {
   @Watch('currentPage')
   watchCurrentPage() {
     this.$route.params.currentPage = String(this.currentPage)
-    console.log(this.$route.params)
-  }
-  goToPage(page: number) {
-    this.$store.commit('products/setCurrentPage', page)
-    this.$store.dispatch('products/getProducts')
   }
   addToCart(product: IProduct): void {
     this.$store.commit('cart/addProduct', product)
@@ -72,11 +67,25 @@ export default class ProductsView extends Vue {
       params: { name: product.title.replace(/\s/g, '-').toLowerCase() },
     })
   }
+  push() {
+    if (+this.$route.params.currentPage !== this.currentPage)
+      this.$router.push({
+        name: 'ProductsView',
+        params: { currentPage: String(this.currentPage) },
+      })
+  }
+  goToPage(page: number) {
+    this.$store.commit('products/setCurrentPage', page)
+    this.$store.dispatch('products/getProducts')
+    this.push()
+  }
   prevPage(): void {
     this.$store.dispatch('products/prevPage')
+    this.push()
   }
   nextPage(): void {
     this.$store.dispatch('products/nextPage')
+    this.push()
   }
 }
 </script>
@@ -100,6 +109,7 @@ export default class ProductsView extends Vue {
 
     &__pagination {
       font-size: 20px;
+      transition: all 0.2s ease;
     }
     &__pagination:hover {
       cursor: pointer;

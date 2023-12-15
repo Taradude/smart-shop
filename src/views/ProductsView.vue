@@ -11,7 +11,14 @@
     </div>
     <div class="products-view__buttons">
       <BaseButton :isDisabled="isPrevButtonDisabled" text="Previous page" @click.native="prevPage" />
-      <div v-for="item in pagesAmount" :key="item" @click="goToPage(item)">{{ item }}</div>
+      <div
+        v-for="item in pagesAmount"
+        :key="item"
+        @click="goToPage(item)"
+        class="products-view__buttons__pagination"
+      >
+        {{ item }}
+      </div>
       <BaseButton :isDisabled="isNextButtonDisabled" text="Next page" @click.native="nextPage" />
     </div>
   </div>
@@ -90,6 +97,15 @@ export default class ProductsView extends Vue {
     gap: 16px;
     align-items: center;
     justify-content: center;
+
+    &__pagination {
+      font-size: 20px;
+    }
+    &__pagination:hover {
+      cursor: pointer;
+      transform: scale(1.2);
+      color: $orange;
+    }
   }
   &__buttons > button:disabled {
     background-color: $grey;

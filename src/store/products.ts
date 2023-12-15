@@ -9,7 +9,7 @@ export default {
     currentProduct: {},
     currentPage: 1,
     productsAmount: 0,
-    productsLimit: 7,
+    productsLimit: 8,
     pagesAmount: 0,
   },
   mutations: {

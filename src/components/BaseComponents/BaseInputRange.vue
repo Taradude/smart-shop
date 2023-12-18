@@ -1,34 +1,40 @@
 <template>
-  <div>
-    <input type="range" />
+  <div class="base-input-range">
+    <vue-slider
+      :value="value"
+      :min="min"
+      :max="max"
+      :interval="interval"
+      :enableCross="enableCross"
+      :minRange="350"
+      @change="onChange"
+    ></vue-slider>
   </div>
 </template>
 
 <script lang="ts">
-export default {}
+import { Component, Prop, Vue } from 'vue-property-decorator'
+import VueSlider from 'vue-slider-component'
+import 'vue-slider-component/theme/default.css'
+
+type Value = number | string | Array<number | string>
+
+@Component({
+  components: {
+    VueSlider,
+  },
+})
+export default class BaseInputRange extends Vue {
+  @Prop({ default: 0 }) value!: Value
+  @Prop({ default: 0 }) min!: number
+  @Prop({ default: 0 }) max!: number
+  @Prop({ default: 0 }) interval!: number
+  @Prop({ default: 0 }) enableCross!: boolean
+
+  onChange(value: Value): void {
+    this.$emit('input', value)
+  }
+}
 </script>
 
-<style lang="scss" scoped>
-input[type='range'] {
-  -webkit-appearance: none;
-  width: 100px;
-  height: 10px; /* Висота полоски */
-
-  /* Задайте стилі для заповненої частини полоски (зафарбованої) */
-  background-color: $blue;
-  border-radius: 5px; /* Закруглені кути полоски */
-  outline: none; /* Забороняє відображення контуру фокусу */
-}
-
-/* Стилізація кружочка (псевдоелемента thumb) */
-input[type='range']::-webkit-slider-thumb {
-  -webkit-appearance: none; /* Відключає стандартний стиль для WebKit */
-  width: 20px; /* Ширина кружочка */
-  height: 20px; /* Висота кружочка */
-  background-color: $grey; /* Колір кружочка */
-  border: 2px solid #ddd; /* Обводка кружочка */
-  border-radius: 50%; /* Кругла форма кружочка */
-  cursor: pointer; /* Змінює вигляд курсора при наведенні на кружочок */
-  margin-top: -5px; /* Вирівнює кружочок по вертикалі */
-}
-</style>
+<style lang="scss" scoped></style>

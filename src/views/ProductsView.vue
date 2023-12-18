@@ -1,7 +1,9 @@
 <template>
   <div class="products-view">
+    <TheFilters v-model="priceRange" />
+
     <div class="products-view__list">
-      <div v-for="item in productsList" :key="item.id" class="product" @click="goToItemPage(item)">
+      <div v-for="item in filteredProductList" :key="item.id" class="product" @click="goToItemPage(item)">
         <h3 class="product__title">{{ item.title }}</h3>
         <img class="product__img" :src="item.images[0]" alt="photo" />
         <p class="product__rating">⭐Rating : {{ item.rating }}</p>
@@ -29,18 +31,26 @@
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import { IProduct } from '@/interfaces/products'
 import BaseButton from '@/components/BaseComponents/BaseButton.vue'
+import TheFilters from '@/components/TheFilters.vue'
 
 @Component({
   components: {
     BaseButton,
+    TheFilters,
   },
 })
 export default class ProductsView extends Vue {
+  priceRange = [0, 1000]
   get productsList(): IProduct[] {
     return this.$store.state.products.productsList
   }
   get currentPage(): number {
     return this.$store.state.products.currentPage
+  }
+  get filteredProductList(): IProduct[] {
+    return this.productsList.filter(
+      (item: IProduct) => item.price > this.priceRange[0] && item.price < this.priceRange[1]
+    )
   }
   get isPrevButtonDisabled(): boolean {
     return this.currentPage <= 1
@@ -53,6 +63,9 @@ export default class ProductsView extends Vue {
       this.currentPage >=
       Math.ceil(this.$store.state.products.productsAmount / this.$store.state.products.productsLimit)
     )
+  }
+  onPriceRangeChange(value: []): void {
+    this.priceRange = [...value]
   }
   @Watch('currentPage')
   watchCurrentPage() {

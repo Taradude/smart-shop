@@ -25,33 +25,13 @@
         </nav>
       </div>
     </div>
-    <div class="bottom">
-      <div class="bottom__select">
-        <select name="" id="">
-          <option value="Category" selected>Category</option>
-        </select>
-      </div>
-      <div class="bottom__price">
-        <p>Price from:</p>
-        <BaseInputRange />
-      </div>
-      <div class="bottom__price">
-        <p>Price to:</p>
-        <BaseInputRange />
-      </div>
-    </div>
   </header>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import BaseInputRange from '@/components/BaseComponents/BaseInputRange.vue'
 
-@Component({
-  components: {
-    BaseInputRange,
-  },
-})
+@Component({})
 export default class TheHeader extends Vue {
   get productsList(): any {
     return this.$store.state.cart.cartList
@@ -106,27 +86,6 @@ export default class TheHeader extends Vue {
   transition: all 0.25s ease-in-out;
   &:hover {
     transform: scale(1.1);
-  }
-}
-
-.bottom {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  gap: 48px;
-
-  &__select {
-    flex-shrink: 0;
-  }
-  select {
-    background-color: $blue;
-    padding: 12px;
-    color: $white;
-    font-weight: bold;
-    border-radius: 12px;
-    option {
-      border-radius: 12px;
-    }
   }
 }
 

@@ -28,7 +28,7 @@ export default {
     decreaseCurrentPage(state: any) {
       state.currentPage--
     },
-    setCurrentPage(state: any, page: string) {
+    setCurrentPage(state: any, page: number) {
       state.currentPage = page
     },
     setPagesAmount(state: any, pages: number) {

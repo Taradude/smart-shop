@@ -1,10 +1,12 @@
 <template>
   <div class="home-view">
-    <carousel>
-      <slide v-for="img in productsList[currentSlide].images" :key="img" :autoplay="5000" :per-page="1">
-        <img :src="img" alt="" />
-      </slide>
-    </carousel>
+    <div class="img-slider">
+      <carousel>
+        <slide v-for="img in productsList[currentSlide].images" :key="img" :autoplay="5000" :per-page="1">
+          <img :src="img" alt="" />
+        </slide>
+      </carousel>
+    </div>
   </div>
 </template>
 
@@ -25,3 +27,5 @@ export default class HomeView extends Vue {
   }
 }
 </script>
+
+<style scoped lang="scss"></style>

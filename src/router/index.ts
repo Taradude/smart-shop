@@ -18,7 +18,7 @@ const beforeEnterProducts = (to: Route, from: Route, next: NavigationGuardNext) 
     return
   }
   const currentPage = to.params.currentPage
-  store.commit('products/setCurrentPage', currentPage)
+  store.commit('products/setCurrentPage', +currentPage)
   next()
 }
 

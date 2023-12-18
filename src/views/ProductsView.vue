@@ -15,6 +15,7 @@
         v-for="item in pagesAmount"
         :key="item"
         @click="goToPage(item)"
+        :class="{ 'active-page': item === currentPage }"
         class="products-view__buttons__pagination"
       >
         {{ item }}
@@ -110,6 +111,11 @@ export default class ProductsView extends Vue {
     &__pagination {
       font-size: 20px;
       transition: all 0.2s ease;
+    }
+    &__pagination.active-page {
+      color: $orange;
+      font-size: x-large;
+      font-weight: bold;
     }
     &__pagination:hover {
       cursor: pointer;

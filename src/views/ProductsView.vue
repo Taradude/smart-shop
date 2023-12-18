@@ -11,7 +11,15 @@
     </div>
     <div class="products-view__buttons">
       <BaseButton :isDisabled="isPrevButtonDisabled" text="Previous page" @click.native="prevPage" />
-      <div v-for="item in pagesAmount" :key="item" @click="goToPage(item)">{{ item }}</div>
+      <div
+        v-for="item in pagesAmount"
+        :key="item"
+        @click="goToPage(item)"
+        :class="{ 'active-page': item === currentPage }"
+        class="products-view__buttons__pagination"
+      >
+        {{ item }}
+      </div>
       <BaseButton :isDisabled="isNextButtonDisabled" text="Next page" @click.native="nextPage" />
     </div>
   </div>
@@ -49,11 +57,6 @@ export default class ProductsView extends Vue {
   @Watch('currentPage')
   watchCurrentPage() {
     this.$route.params.currentPage = String(this.currentPage)
-    console.log(this.$route.params)
-  }
-  goToPage(page: number) {
-    this.$store.commit('products/setCurrentPage', page)
-    this.$store.dispatch('products/getProducts')
   }
   addToCart(product: IProduct): void {
     this.$store.commit('cart/addProduct', product)
@@ -65,11 +68,25 @@ export default class ProductsView extends Vue {
       params: { name: product.title.replace(/\s/g, '-').toLowerCase() },
     })
   }
+  push() {
+    if (+this.$route.params.currentPage !== this.currentPage)
+      this.$router.push({
+        name: 'ProductsView',
+        params: { currentPage: String(this.currentPage) },
+      })
+  }
+  goToPage(page: number) {
+    this.$store.commit('products/setCurrentPage', page)
+    this.$store.dispatch('products/getProducts')
+    this.push()
+  }
   prevPage(): void {
     this.$store.dispatch('products/prevPage')
+    this.push()
   }
   nextPage(): void {
     this.$store.dispatch('products/nextPage')
+    this.push()
   }
 }
 </script>
@@ -90,6 +107,21 @@ export default class ProductsView extends Vue {
     gap: 16px;
     align-items: center;
     justify-content: center;
+
+    &__pagination {
+      font-size: 20px;
+      transition: all 0.2s ease;
+    }
+    &__pagination.active-page {
+      color: $orange;
+      font-size: x-large;
+      font-weight: bold;
+    }
+    &__pagination:hover {
+      cursor: pointer;
+      transform: scale(1.2);
+      color: $orange;
+    }
   }
   &__buttons > button:disabled {
     background-color: $grey;

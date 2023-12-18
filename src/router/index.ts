@@ -8,10 +8,17 @@ Vue.use(VueRouter)
 store.commit('initializeStore')
 
 const beforeEnterProducts = (to: Route, from: Route, next: NavigationGuardNext) => {
-  // to.params.currentPage = store.state.products.currentPage
-  console.log(to.params)
+  const pagesAmount = store.state.products.pagesAmount
+  if (!to.params.currentPage) {
+    next({ params: { currentPage: '1' } })
+    return
+  }
+  if (to.params.currentPage > pagesAmount) {
+    next({ name: 'ProductsView', params: { currentPage: pagesAmount } })
+    return
+  }
   const currentPage = to.params.currentPage
-  store.commit('products/setCurrentPage', currentPage)
+  store.commit('products/setCurrentPage', +currentPage)
   next()
 }
 
@@ -24,6 +31,10 @@ const routes: Array<RouteConfig> = [
         path: '',
         name: 'HomeView',
         component: () => import('@/views/HomeView.vue'),
+      },
+      {
+        path: '/products',
+        redirect: { name: 'ProductsView', params: { currentPage: '1' } },
       },
       {
         path: '/products/:currentPage',

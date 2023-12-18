@@ -13,7 +13,9 @@
           </div>
 
           <router-link :to="{ name: 'HomeView' }"> <h3>Home</h3> </router-link>
-          <router-link :to="{ name: 'ProductsView' }"> <h3>Products</h3></router-link>
+          <router-link :to="{ name: 'ProductsView', params: { currentPage: '1' } }">
+            <h3>Products</h3></router-link
+          >
           <router-link :to="{ name: 'LoginView' }"
             ><img id="login" src="@/assets/user.png" alt="" />
           </router-link>

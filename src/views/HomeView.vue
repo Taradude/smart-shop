@@ -1,11 +1,31 @@
 <template>
   <div class="home-view">
+    <div class="img-slider">
+      <carousel>
+        <slide v-for="img in productsList[currentSlide].images" :key="img" :autoplay="5000" :per-page="1">
+          <img :src="img" alt="" />
+        </slide>
+      </carousel>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue } from 'vue-property-decorator'
+import { Carousel, Slide } from 'vue-carousel'
 
-@Component
-export default class HomeView extends Vue {}
+@Component({
+  components: {
+    Carousel,
+    Slide,
+  },
+})
+export default class HomeView extends Vue {
+  currentSlide = 0
+  get productsList(): any {
+    return this.$store.state.products.productsList.slice(0, 10)
+  }
+}
 </script>
+
+<style scoped lang="scss"></style>

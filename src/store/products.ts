@@ -9,7 +9,7 @@ export default {
     currentProduct: {},
     currentPage: 1,
     productsAmount: 0,
-    productsLimit: 7,
+    productsLimit: 8,
     pagesAmount: 0,
   },
   mutations: {
@@ -28,7 +28,7 @@ export default {
     decreaseCurrentPage(state: any) {
       state.currentPage--
     },
-    setCurrentPage(state: any, page: string) {
+    setCurrentPage(state: any, page: number) {
       state.currentPage = page
     },
     setPagesAmount(state: any, pages: number) {

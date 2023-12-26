@@ -11,6 +11,7 @@ export default {
     productsAmount: 0,
     productsLimit: 8,
     pagesAmount: 0,
+    priceRange: [],
   },
   mutations: {
     setProducts(state: any, newProductsList: IProduct[]) {
@@ -34,9 +35,12 @@ export default {
     setPagesAmount(state: any, pages: number) {
       state.pagesAmount = pages
     },
+    setPriceRange(state:any,priceRange: number[]) {
+      state.priceRange = priceRange
+    }
   },
   actions: {
-    async getProducts({ commit, state }: any) {
+    async getProducts({ commit, dispatch, state }: any) {
       const { data } = await instanceApi.get(
         `products?limit=${state.productsLimit}&skip=${(state.currentPage - 1) * state.productsLimit}`
       )
@@ -44,6 +48,7 @@ export default {
       commit('setProducts', data.products)
       commit('setProductsAmount', data.total)
       commit('setPagesAmount', pagesAmount)
+      dispatch('findMaxMinPrice')
     },
     nextPage({ commit, dispatch }: any) {
       commit('increaseCurrentPage')
@@ -52,6 +57,18 @@ export default {
     prevPage({ commit, dispatch }: any) {
       commit('decreaseCurrentPage')
       dispatch('getProducts')
+    },
+    findMaxMinPrice(context: any,): void {
+      const products = context.state.productsList;
+  
+      if (products.length > 0) {
+        const minPrice = Math.min(...products.map((product: any) => product.price));
+        const maxPrice = Math.max(...products.map((product: any) => product.price));
+        console.log(context.state.productsList)
+        context.commit('setPriceRange', [minPrice, maxPrice]);
+      } else {
+        context.commit('setPriceRange', [0, 0]);
+      }
     },
   },
 }

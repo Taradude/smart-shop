@@ -65,9 +65,9 @@ export default class TheHeader extends Vue {
 }
 
 #logo {
-  height: 180px;
+  height: 140px;
   position: absolute;
-  left: -50px;
+  left: -40px;
   top: 0;
   transition: all 0.25s ease-in-out;
   &:hover {

@@ -9,9 +9,9 @@
       <p>Price from:</p>
       <BaseInputRange
         :value="priceRange"
-        :min="0"
-        :max="2000"
-        :interval="10"
+        :min="min"
+        :max="max"
+        :interval="1"
         :enableCross="false"
         @input="onPriceRangeChange"
       />
@@ -29,7 +29,9 @@ import BaseInputRange from './BaseComponents/BaseInputRange.vue'
   },
 })
 export default class TheFilters extends Vue {
-  @Prop({ default: [] }) priceRange!: []
+  @Prop({ default: 0 }) min!: number
+  @Prop({ default: 0 }) max!: number
+  @Prop({ default: () => [] }) priceRange!: number[]
   onPriceRangeChange(value: []): void {
     this.$emit('input', value)
   }
@@ -38,6 +40,7 @@ export default class TheFilters extends Vue {
 
 <style scoped lang="scss">
 .filters {
+  padding: 20px;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;

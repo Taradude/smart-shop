@@ -32,6 +32,7 @@
 import { Vue, Component } from 'vue-property-decorator'
 
 @Component
+
 export default class TheHeader extends Vue {
   get productsList(): any {
     return this.$store.state.cart.cartList

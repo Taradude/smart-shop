@@ -31,8 +31,7 @@ import BaseInputRange from './BaseComponents/BaseInputRange.vue'
 export default class TheFilters extends Vue {
   @Prop({ default: () => ([]) }) priceRange!: [];
     onPriceRangeChange(value: []): void {
-    this.$emit('input', value)
-  }
+
 }
 </script>
 

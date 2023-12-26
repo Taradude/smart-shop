@@ -2,6 +2,8 @@
   <div class="products-view">
     <TheFilters :priceRange="priceRangeGetter" :min="priceRangeGetter[0]" :max="priceRangeGetter[1]" @input="onPriceRangeChange"/>
 
+
+
     <div class="products-view__list">
       <div v-for="item in filteredProductList" :key="item.id" class="product" @click="goToItemPage(item)">
         <h3 class="product__title">{{ item.title }}</h3>
@@ -41,6 +43,7 @@ import TheFilters from '@/components/TheFilters.vue'
 })
 export default class ProductsView extends Vue {
   priceRange = [0,0]
+
   get productsList(): IProduct[] {
     return this.$store.state.products.productsList
   }
@@ -54,6 +57,7 @@ export default class ProductsView extends Vue {
    
   );
 }
+
   get isPrevButtonDisabled(): boolean {
     return this.currentPage <= 1
   }
@@ -71,6 +75,8 @@ export default class ProductsView extends Vue {
   }
   onPriceRangeChange(value: number[]): void {
     this.$store.state.products.priceRange = [...value]
+
+
   }
   @Watch('currentPage')
   watchCurrentPage() {

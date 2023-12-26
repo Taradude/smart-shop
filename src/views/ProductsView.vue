@@ -1,6 +1,6 @@
 <template>
   <div class="products-view">
-    <TheFilters :priceRange="priceRangeGetter" :min="priceRangeGetter[0]" :max="priceRangeGetter[1]" @input="onPriceRangeChange"/>
+    <TheFilters :priceRange="priceRangeGetter" :min="min" :max="max" @input="onPriceRangeChange" />
 
     <div class="products-view__list">
       <div v-for="item in filteredProductList" :key="item.id" class="product" @click="goToItemPage(item)">
@@ -40,7 +40,6 @@ import TheFilters from '@/components/TheFilters.vue'
   },
 })
 export default class ProductsView extends Vue {
-  priceRange = [0,0]
   get productsList(): IProduct[] {
     return this.$store.state.products.productsList
   }
@@ -48,12 +47,10 @@ export default class ProductsView extends Vue {
     return this.$store.state.products.currentPage
   }
   get filteredProductList(): IProduct[] {
-  return this.productsList.filter(
-    (item: IProduct) =>
-      item.price > this.$store.state.products.priceRange[0] &&  item.price < this.$store.state.products.priceRange[1]
-   
-  );
-}
+    return this.productsList.filter(
+      (item: IProduct) => item.price >= this.priceRangeGetter[0] && item.price <= this.priceRangeGetter[1]
+    )
+  }
   get isPrevButtonDisabled(): boolean {
     return this.currentPage <= 1
   }
@@ -66,11 +63,17 @@ export default class ProductsView extends Vue {
       Math.ceil(this.$store.state.products.productsAmount / this.$store.state.products.productsLimit)
     )
   }
+  get min(): number {
+    return this.$store.state.products.min
+  }
+  get max(): number {
+    return this.$store.state.products.max
+  }
   get priceRangeGetter(): number[] {
-    return this.$store.state.products.priceRange     
+    return this.$store.state.products.priceRange
   }
   onPriceRangeChange(value: number[]): void {
-    this.$store.state.products.priceRange = [...value]
+    this.$store.commit('products/setPriceRange', value)
   }
   @Watch('currentPage')
   watchCurrentPage() {

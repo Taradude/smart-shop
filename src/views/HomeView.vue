@@ -3,8 +3,8 @@
     <h1>Online Shop</h1>
     <div class="img-slider">
       <carousel class="carousel" autoplay :per-page="1" loop>
-        <slide class="img-slider__slide" v-for="product in firstProducts" :key="product.id">
-          <img :src="product.images[0]" alt="" />
+        <slide class="img-slider__slide" v-for="product in firstProducts" :key="product?.id">
+          <img :src="product?.image" alt="" />
         </slide>
       </carousel>
     </div>
@@ -14,6 +14,11 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { Carousel, Slide } from 'vue-carousel'
+import { IProduct } from '@/interfaces/products'
+interface IProductSliced {
+  id: number
+  image: string
+}
 
 @Component({
   components: {
@@ -25,10 +30,12 @@ export default class HomeView extends Vue {
   currentSlide = 0
 
   get firstProducts(): any {
-    return this.$store.state.products.productsList.slice(0, 7).map((product: any) => ({
-      id: product.id,
-      images: [product.images[0]],
-    }))
+    return this.$store.state.products.productsList.slice(0, 7).map((product: IProduct) => {
+      return {
+        id: product.id,
+        image: product.images[0],
+      }
+    })
   }
 }
 </script>

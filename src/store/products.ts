@@ -7,6 +7,7 @@ export default {
   state: {
     productsList: [],
     currentProduct: {},
+    categories: [],
     currentPage: 1,
     productsAmount: 0,
     productsLimit: 8,
@@ -44,6 +45,9 @@ export default {
       state.min = values[0]
       state.max = values[1]
     },
+    setCategories(state: any, values: []) {
+      state.categories = values
+    },
   },
   actions: {
     async getProducts({ commit, dispatch, state }: any) {
@@ -55,6 +59,7 @@ export default {
       commit('setProductsAmount', data.total)
       commit('setPagesAmount', pagesAmount)
       dispatch('findMaxMinPrice')
+      dispatch('getCategories')
     },
     nextPage({ commit, dispatch }: any) {
       commit('increaseCurrentPage')
@@ -63,6 +68,10 @@ export default {
     prevPage({ commit, dispatch }: any) {
       commit('decreaseCurrentPage')
       dispatch('getProducts')
+    },
+    async getCategories({ state, commit }: any) {
+      const { data } = await instanceApi.get('products/categories')
+      commit('setCategories', data)
     },
     findMaxMinPrice(context: any): void {
       const products = context.state.productsList

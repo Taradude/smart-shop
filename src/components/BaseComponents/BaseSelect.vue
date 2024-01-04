@@ -1,29 +1,33 @@
 <template>
   <div @click="toggleOptions" class="select-menu">
-    <p>Category</p>
+    <p>{{ currentOption || defaultOptionsText }}</p>
     <div class="select-menu__options" v-if="areOptionsVisible">
-      <p v-for="options in optionsList" :key="options">{{ options }}</p>
+      <p v-for="option in optionsList" :key="option" @click="onSelect(option)">{{ option }}</p>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Prop } from 'vue-property-decorator'
+import { Vue, Prop, Component } from 'vue-property-decorator'
+@Component
 export default class BaseSelect extends Vue {
   @Prop() areOptionsVisible!: boolean
-
-  get optionsList(): string[] {
-    return this.$store.state.products.categories
-  }
+  @Prop() optionsList!: string[]
+  @Prop() currentOption!: string
+  @Prop() defaultOptionsText!: string
 
   toggleOptions(): void {
     this.$emit('update:areOptionsVisible', !this.areOptionsVisible)
+  }
+  onSelect(option: string): void {
+    this.$emit('update:currentOption', option)
   }
 }
 </script>
 
 <style scoped lang="scss">
 .select-menu {
+  position: relative;
   border: 2px solid;
   padding: 12px;
   display: flex;
@@ -31,8 +35,23 @@ export default class BaseSelect extends Vue {
   border-radius: 10px;
 
   &__options {
+    position: absolute;
+    top: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: bisque;
+    z-index: 100;
     border: 2px solid;
-    padding: 5px;
+    padding: 8px;
+
+    p {
+      cursor: pointer;
+      transition: all ease-in-out 0.2s;
+      padding: 8px 0;
+      &:hover {
+        background-color: #fff;
+      }
+    }
   }
 }
 </style>

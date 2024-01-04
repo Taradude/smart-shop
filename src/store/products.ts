@@ -8,6 +8,7 @@ export default {
     productsList: [],
     currentProduct: {},
     categories: [],
+    currentOption: '',
     currentPage: 1,
     productsAmount: 0,
     productsLimit: 8,
@@ -46,13 +47,18 @@ export default {
       state.max = values[1]
     },
     setCategories(state: any, values: []) {
-      state.categories = values
+      state.categories = [...values]
+    },
+    changeCategory(state: any, option: string) {
+      state.currentOption = option
     },
   },
   actions: {
     async getProducts({ commit, dispatch, state }: any) {
       const { data } = await instanceApi.get(
-        `products?limit=${state.productsLimit}&skip=${(state.currentPage - 1) * state.productsLimit}`
+        `products${state.currentOption ? `/category/${state.currentOption}` : ''}?limit=${
+          state.productsLimit
+        }&skip=${(state.currentPage - 1) * state.productsLimit}`
       )
       const pagesAmount = Math.ceil(data.total / state.productsLimit)
       commit('setProducts', data.products)

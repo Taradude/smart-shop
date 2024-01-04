@@ -1,6 +1,13 @@
 <template>
   <div class="products-view">
-    <TheFilters :priceRange="priceRangeGetter" :min="min" :max="max" @input="onPriceRangeChange" />
+    <TheFilters
+      :priceRange="priceRangeGetter"
+      :min="min"
+      :max="max"
+      @input="onPriceRangeChange"
+      :currentOption.sync="$store.state.products.currentOption"
+      @update:currentOption="onCategorySelect"
+    />
 
     <div class="products-view__list">
       <div v-for="item in filteredProductList" :key="item.id" class="product" @click="goToItemPage(item)">
@@ -74,6 +81,10 @@ export default class ProductsView extends Vue {
   }
   onPriceRangeChange(value: number[]): void {
     this.$store.commit('products/setPriceRange', value)
+  }
+  onCategorySelect(value: string): void {
+    this.$store.commit('products/changeCategory', value)
+    this.$store.dispatch('products/getProducts')
   }
   @Watch('currentPage')
   watchCurrentPage() {

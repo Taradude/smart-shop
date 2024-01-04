@@ -1,6 +1,12 @@
 <template>
   <div class="filters">
-    <BaseSelect :areOptionsVisible="areOptionsVisible" />
+    <BaseSelect
+      :areOptionsVisible.sync="areOptionsVisible"
+      :optionsList="optionsList"
+      defaultOptionsText="category"
+      :currentOption="currentOption"
+      @update:currentOption="onCategorySelect"
+    />
     <div class="filters__price">
       <p>Price from:</p>
       <BaseInputRange
@@ -30,10 +36,19 @@ export default class TheFilters extends Vue {
   @Prop({ default: 0 }) min!: number
   @Prop({ default: 0 }) max!: number
   @Prop({ default: () => [] }) priceRange!: number[]
-  areOptionsVisible = true
+  @Prop() currentOption!: string
+
+  areOptionsVisible = false
+
+  get optionsList(): string[] {
+    return this.$store.state.products.categories
+  }
 
   onPriceRangeChange(value: []): void {
     this.$emit('input', value)
+  }
+  onCategorySelect(value: string): void {
+    this.$emit('update:currentOption', value)
   }
 }
 </script>

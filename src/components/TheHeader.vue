@@ -13,7 +13,12 @@
           </div>
 
           <router-link :to="{ name: 'HomeView' }"> <h3>Home</h3> </router-link>
-          <router-link :to="{ name: 'ProductsView', params: { currentPage: '1' } }">
+          <router-link
+            :to="{
+              name: 'ProductsView',
+              params: { currentPage: '1', currentOption: $store.state.products.currentOption || 'all' },
+            }"
+          >
             <h3>Products</h3></router-link
           >
           <router-link :to="{ name: 'LoginView' }"
@@ -32,7 +37,6 @@
 import { Vue, Component } from 'vue-property-decorator'
 
 @Component
-
 export default class TheHeader extends Vue {
   get productsList(): any {
     return this.$store.state.cart.cartList

@@ -35,10 +35,10 @@ const routes: Array<RouteConfig> = [
       },
       {
         path: '/products',
-        redirect: { name: 'ProductsView', params: { currentPage: '1' } },
+        redirect: { name: 'ProductsView', params: { currentPage: '1', currentOption: '' } },
       },
       {
-        path: ':currentOption/products/:currentPage',
+        path: '/products/:currentOption/:currentPage',
         name: 'ProductsView',
         component: () => import('@/views/ProductsView.vue'),
         beforeEnter: beforeEnterProducts,

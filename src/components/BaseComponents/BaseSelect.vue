@@ -53,6 +53,9 @@ export default class BaseSelect extends Vue {
   }
   .rotated {
     transform: rotate(10deg);
+    &::after {
+      transform: rotate(10deg);
+    }
   }
 
   &__options {

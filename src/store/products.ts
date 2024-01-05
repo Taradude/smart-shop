@@ -1,6 +1,7 @@
 import { instanceApi } from '@/api/mainInstance'
 
 import { IProduct } from '@/interfaces/products'
+import router from '@/router'
 
 export default {
   namespaced: true,
@@ -54,6 +55,10 @@ export default {
     },
     clearCurrentOption(state: any) {
       state.currentOption = ''
+      router.push({
+        name: 'ProductsView',
+        params: { currentPage: '1', currentOption: state.currentOption || 'all' },
+      })
     },
   },
   actions: {
@@ -88,8 +93,8 @@ export default {
       if (products.length > 0) {
         const minPrice = Math.min(...products.map((product: any) => product.price))
         const maxPrice = Math.max(...products.map((product: any) => product.price))
-        context.commit('setPriceRange', [minPrice, maxPrice])
         context.commit('setMinMax', [minPrice, maxPrice])
+        context.commit('setPriceRange', [minPrice, maxPrice])
       } else {
         context.commit('setPriceRange', [0, 0])
       }

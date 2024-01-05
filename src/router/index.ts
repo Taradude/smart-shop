@@ -19,6 +19,7 @@ const beforeEnterProducts = (to: Route, from: Route, next: NavigationGuardNext) 
   }
   const currentPage = to.params.currentPage
   store.commit('products/setCurrentPage', +currentPage)
+
   next()
 }
 
@@ -37,7 +38,7 @@ const routes: Array<RouteConfig> = [
         redirect: { name: 'ProductsView', params: { currentPage: '1' } },
       },
       {
-        path: '/products/:currentPage',
+        path: ':currentOption/products/:currentPage',
         name: 'ProductsView',
         component: () => import('@/views/ProductsView.vue'),
         beforeEnter: beforeEnterProducts,

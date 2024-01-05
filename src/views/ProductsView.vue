@@ -7,13 +7,14 @@
       @input="onPriceRangeChange"
       :currentOption.sync="$store.state.products.currentOption"
       @update:currentOption="onCategorySelect"
+      @click="clearOptions"
     />
 
     <div class="products-view__list">
       <div v-for="item in filteredProductList" :key="item.id" class="product" @click="goToItemPage(item)">
         <h3 class="product__title">{{ item.title }}</h3>
         <img class="product__img" :src="item.images[0]" alt="photo" />
-        <p class="product__rating">⭐Rating : {{ item.rating }}</p>
+        <p class="product__rating">Rating : {{ item.rating }}⭐</p>
         <p class="product__price">Price : ${{ item.price }}</p>
         <BaseButton class="product__button" text="Buy" @click.native.stop="addToCart(item)" />
       </div>
@@ -79,11 +80,24 @@ export default class ProductsView extends Vue {
   get priceRangeGetter(): number[] {
     return this.$store.state.products.priceRange
   }
+  get currentOption(): string {
+    return this.$store.state.products.currentOption
+  }
   onPriceRangeChange(value: number[]): void {
     this.$store.commit('products/setPriceRange', value)
   }
   onCategorySelect(value: string): void {
     this.$store.commit('products/changeCategory', value)
+    this.$store.dispatch('products/getProducts')
+    if (this.currentOption) {
+      this.$router.push({
+        name: 'ProductsView',
+        params: { currentOption: this.currentOption },
+      })
+    }
+  }
+  clearOptions(): void {
+    this.$store.commit('products/clearCurrentOption')
     this.$store.dispatch('products/getProducts')
   }
   @Watch('currentPage')

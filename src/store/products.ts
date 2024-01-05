@@ -11,7 +11,7 @@ export default {
     currentOption: '',
     currentPage: 1,
     productsAmount: 0,
-    productsLimit: 8,
+    productsLimit: 10,
     pagesAmount: 0,
     priceRange: [],
     min: 0,
@@ -51,6 +51,9 @@ export default {
     },
     changeCategory(state: any, option: string) {
       state.currentOption = option
+    },
+    clearCurrentOption(state: any) {
+      state.currentOption = ''
     },
   },
   actions: {

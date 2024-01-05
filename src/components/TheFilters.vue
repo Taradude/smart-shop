@@ -6,6 +6,7 @@
       defaultOptionsText="category"
       :currentOption="currentOption"
       @update:currentOption="onCategorySelect"
+      @click="clearOptions"
     />
     <div class="filters__price">
       <p>Price from:</p>
@@ -49,6 +50,9 @@ export default class TheFilters extends Vue {
   }
   onCategorySelect(value: string): void {
     this.$emit('update:currentOption', value)
+  }
+  clearOptions(): void {
+    this.$emit('click')
   }
 }
 </script>

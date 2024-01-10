@@ -1,6 +1,9 @@
 <template>
   <div class="base-input">
-    <label for="">{{ label }}</label>
+    <div>
+      <label for="">{{ label }}</label>
+    </div>
+
     <input type="text" :placeholder="placeholder" :value="value" @input="onInput" />
   </div>
 </template>
@@ -21,4 +24,27 @@ export default class BaseInput extends Vue {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.base-input {
+  padding: 25px;
+
+  label {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  input {
+    margin: 12px;
+    width: 300px;
+    background-color: $blue;
+    color: $white;
+    padding: 12px;
+    line-height: 24px;
+    border-radius: 8px;
+
+    &::placeholder {
+      color: $white;
+      opacity: 0.8;
+    }
+  }
+}
+</style>

@@ -1,5 +1,6 @@
 <template>
   <div class="login-view">
+    <h1>Login</h1>
     <BaseInput v-model="email" label="Email" placeholder="Enter your email" />
     <BaseInput v-model="password" label="Password" placeholder="Enter your password" />
   </div>
@@ -26,4 +27,19 @@ export default class LoginView extends Vue {
 }
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.login-view {
+  padding: 44px;
+  margin: 0 auto;
+  height: 400px;
+  width: 50%;
+  background-color: $orange;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+</style>

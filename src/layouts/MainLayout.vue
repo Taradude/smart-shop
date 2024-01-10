@@ -1,6 +1,6 @@
 <template>
   <div class="main-layout">
-    <TheHeader />
+    <TheHeader :searchValue.sync="searchValue" />
     <div class="main-layout__page">
       <router-view />
     </div>
@@ -8,15 +8,31 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Watch } from 'vue-property-decorator'
 import TheHeader from '@/components/TheHeader.vue'
+import { IProduct } from '@/interfaces/products'
 
 @Component({
   components: {
     TheHeader,
   },
 })
-export default class MainLayout extends Vue {}
+export default class MainLayout extends Vue {
+  searchValue = ''
+
+  @Watch('searchValue')
+  onSearchValueChanged(newValue: string) {
+    this.$store.dispatch('products/filterByKeyWords', newValue)
+  }
+  // GoToItem(product: IProduct) {
+  //   this.$store.commit('products/setCurrentProduct', product)
+  //   console.log('product')
+  //   this.$router.push({
+  //     name: 'ProductItemView',
+  //     params: { name: product.title.replace(/\s/g, '-').toLowerCase() },
+  //   })
+  // }
+}
 </script>
 
 <style lang="scss">

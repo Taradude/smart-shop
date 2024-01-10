@@ -10,6 +10,7 @@ export default {
     currentProduct: {},
     categories: [],
     currentOption: '',
+    filteredBySearch: [],
     currentPage: 1,
     productsAmount: 0,
     productsLimit: 10,
@@ -60,6 +61,9 @@ export default {
         params: { currentPage: '1', currentOption: state.currentOption || 'all' },
       })
     },
+    setFilteredBySearch(state: any, filtered: any) {
+      state.filteredBySearch = filtered.products
+    },
   },
   actions: {
     async getProducts({ commit, dispatch, state }: any) {
@@ -98,6 +102,12 @@ export default {
       } else {
         context.commit('setPriceRange', [0, 0])
       }
+    },
+    async filterByKeyWords(context: any, keyword: string | number) {
+      setTimeout(async () => {
+        const { data } = await instanceApi.get(`/products/search?q=${keyword}`)
+        context.commit('setFilteredBySearch', data)
+      }, 500)
     },
   },
 }

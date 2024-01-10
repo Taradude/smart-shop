@@ -8,8 +8,13 @@
           /></router-link>
           <h1>Smart Shop</h1>
           <div class="input-wrap">
-            <input id="search" type="text" placeholder="Search" />
-            <button class="search-button"><img src="@/assets/search.png" alt="" /></button>
+            <input id="search" type="text" placeholder="Search" @input="onInput" v-model="searchValue" />
+            <!-- <button class="search-button"><img src="@/assets/search.png" alt="" /></button> -->
+            <div class="filtered-items" v-if="filteredProductsBySearch.length >= 1">
+              <p v-for="product in filteredProductsBySearch" @click="emitGoToItem(product)" :key="product.id">
+                {{ product.title }}
+              </p>
+            </div>
           </div>
 
           <router-link :to="{ name: 'HomeView' }"> <h3>Home</h3> </router-link>
@@ -34,15 +39,34 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
+import { IProduct } from '@/interfaces/products'
+import { Vue, Component, Prop } from 'vue-property-decorator'
 
 @Component
 export default class TheHeader extends Vue {
+  // @Prop({ default: 0 }) value!: number | string
+
   get productsList(): any {
     return this.$store.state.cart.cartList
   }
   get cartItemsLength(): any {
     return this.$store.state.cart.totalItems
+  }
+  get filteredProductsBySearch(): any {
+    return this.$store.state.products.filteredBySearch
+  }
+  searchValue = ''
+
+  onInput() {
+    this.$emit('update:searchValue', this.searchValue)
+  }
+  emitGoToItem(product: IProduct) {
+    this.$store.commit('products/setCurrentProduct', product)
+    console.log('product')
+    this.$router.push({
+      name: 'ProductItemView',
+      params: { name: product.title.replace(/\s/g, '-').toLowerCase() },
+    })
   }
 }
 </script>
@@ -102,8 +126,10 @@ export default class TheHeader extends Vue {
   color: white;
   width: 100%;
   height: 100%;
-  padding: 12px;
-  border-radius: 15px;
+  padding: 18px;
+  font-size: 18px;
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
   background-color: $blue;
 
   &::placeholder {
@@ -144,5 +170,37 @@ a span {
   color: $white;
   font-weight: bold;
   font-size: 16px;
+}
+
+.filtered-items {
+  box-sizing: border-box;
+  position: absolute;
+  width: 100%;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: all 0.5s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  background-color: $blue;
+  opacity: 0.9;
+  z-index: 100;
+  border: 1px solid;
+  padding: 6px;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  p {
+    margin: 0;
+    padding: 8px;
+    color: $white;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $white;
+      opacity: 0.9;
+      color: $black;
+      border-radius: 6px;
+    }
+  }
 }
 </style>

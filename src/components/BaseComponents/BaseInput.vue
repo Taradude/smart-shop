@@ -1,8 +1,6 @@
 <template>
   <div class="base-input">
-    <div>
-      <label for="">{{ label }}</label>
-    </div>
+    <label for="">{{ label }}</label>
 
     <input type="text" :placeholder="placeholder" :value="value" @input="onInput" />
   </div>
@@ -27,6 +25,8 @@ export default class BaseInput extends Vue {
 <style scoped lang="scss">
 .base-input {
   padding: 25px;
+  display: flex;
+  flex-direction: column;
 
   label {
     font-size: 20px;

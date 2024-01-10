@@ -6,7 +6,7 @@
       :max="max"
       :interval="interval"
       :enableCross="enableCross"
-      :minRange="350"
+      :minRange="min"
       @change="onChange"
     ></vue-slider>
   </div>

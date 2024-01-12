@@ -67,7 +67,6 @@ export default class TheHeader extends Vue {
   get isFilteredProductsBySearchShown() {
     return this.filteredProductsBySearch.length > 0 && this.filteredProductSwitch
   }
-
   created() {
     Vue.use(vClickOutside)
   }
@@ -140,6 +139,7 @@ export default class TheHeader extends Vue {
   width: 50px;
   height: 50px;
   transition: all 0.25s ease-in-out;
+
   &:hover {
     transform: scale(1.1);
   }

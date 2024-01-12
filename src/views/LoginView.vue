@@ -3,11 +3,11 @@
     <h1>Login</h1>
     <BaseInput v-model="email" label="Email" placeholder="Enter your email" id="login" />
     <BaseInput v-model="password" label="Password" placeholder="Enter your password" id="password" />
-    <BaseButton text="Login" />
+    <BaseButton text="Login" @click.native="login" />
 
     <span
       >Don't have an account yet ? Then
-      <router-link :to="{ name: 'RegistrationView' }"><span>register now</span></router-link>
+      <router-link :to="{ name: 'RegistrationView' }">register now</router-link>
     </span>
   </div>
 </template>
@@ -16,6 +16,8 @@
 import { Component, Vue } from 'vue-property-decorator'
 import BaseInput from '@/components/BaseComponents/BaseInput.vue'
 import BaseButton from '@/components/BaseComponents/BaseButton.vue'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import router from '@/router'
 
 @Component({
   components: {
@@ -32,6 +34,18 @@ export default class LoginView extends Vue {
   }
   get password(): string {
     return this.$store.state.users.password
+  }
+
+  async login() {
+    try {
+      const auth = getAuth()
+      const userCredential = await signInWithEmailAndPassword(auth, this.email, this.password)
+      const user = userCredential.user
+      console.log('User logged in successfully:', user)
+      router.push('/')
+    } catch (error) {
+      console.error('Login error:', error)
+    }
   }
 }
 </script>
@@ -51,7 +65,8 @@ export default class LoginView extends Vue {
   overflow: hidden;
   text-overflow: ellipsis;
 
-  span {
+  span,
+  a {
     font-size: 20px;
     font-weight: bold;
     padding-top: 12px;

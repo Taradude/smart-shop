@@ -2,7 +2,7 @@
   <div class="base-input">
     <label :for="id">{{ label }}</label>
 
-    <input :id="id" type="text" :placeholder="placeholder" :value="value" @input="onInput" />
+    <input :id="id" :name="id" :placeholder="placeholder" :value="value" type="text" @input="onInput" />
   </div>
 </template>
 

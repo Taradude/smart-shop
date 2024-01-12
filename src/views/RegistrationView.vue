@@ -8,7 +8,7 @@
 
     <span
       >Already have an account? Then
-      <router-link :to="{ name: 'LoginView' }"><span>login now</span></router-link>
+      <router-link :to="{ name: 'LoginView' }">login now</router-link>
     </span>
   </div>
 </template>
@@ -64,7 +64,9 @@ export default class RegistrationView extends Vue {
   align-items: center;
   overflow: hidden;
   text-overflow: ellipsis;
-  span {
+
+  span,
+  a {
     font-size: 20px;
     font-weight: bold;
     padding-top: 12px;

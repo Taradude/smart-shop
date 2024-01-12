@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import { FirebaseApp } from 'firebase/app'
+
 import { initializeApp } from 'firebase/app'
 import 'firebase/auth'
 
@@ -14,7 +14,7 @@ const firebaseConfig = {
   messagingSenderId: '530124184752',
   appId: '1:530124184752:web:c8b70d4f2365aa006c2f75',
 }
-const app = initializeApp(firebaseConfig)
+initializeApp(firebaseConfig)
 
 Vue.config.productionTip = false
 

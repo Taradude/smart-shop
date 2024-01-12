@@ -1,8 +1,8 @@
 <template>
   <div class="base-input">
-    <label for="">{{ label }}</label>
+    <label :for="id">{{ label }}</label>
 
-    <input type="text" :placeholder="placeholder" :value="value" @input="onInput" />
+    <input :id="id" type="text" :placeholder="placeholder" :value="value" @input="onInput" />
   </div>
 </template>
 
@@ -14,6 +14,7 @@ export default class BaseInput extends Vue {
   @Prop({ default: '' }) value!: string
   @Prop({ default: '' }) label!: string
   @Prop({ default: '' }) placeholder!: string
+  @Prop({ default: '' }) id!: string
 
   onInput(event: Event): void {
     const target = event.target as HTMLInputElement

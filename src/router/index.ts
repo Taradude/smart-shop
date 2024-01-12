@@ -58,6 +58,11 @@ const routes: Array<RouteConfig> = [
         name: 'LoginView',
         component: () => import('@/views/LoginView.vue'),
       },
+      {
+        path: '/register',
+        name: 'RegistrationView',
+        component: () => import('@/views/RegistrationView.vue'),
+      },
     ],
   },
 ]

@@ -2,7 +2,18 @@
   <div class="base-input">
     <label :for="id">{{ label }}</label>
 
-    <input :id="id" :name="id" :placeholder="placeholder" :value="value" type="text" @input="onInput" />
+    <input
+      :class="{ error: isErrorShown }"
+      :id="id"
+      :name="id"
+      :placeholder="placeholder"
+      :value="value"
+      type="text"
+      @input="onInput"
+      @blur="onBlur"
+    />
+
+    <p v-if="isErrorShown" class="base-input__error">{{ errorMessage }}</p>
   </div>
 </template>
 
@@ -15,10 +26,15 @@ export default class BaseInput extends Vue {
   @Prop({ default: '' }) label!: string
   @Prop({ default: '' }) placeholder!: string
   @Prop({ default: '' }) id!: string
+  @Prop({ default: '' }) errorMessage!: string
+  @Prop({ default: '' }) isErrorShown!: boolean
 
   onInput(event: Event): void {
     const target = event.target as HTMLInputElement
     this.$emit('input', target.value)
+  }
+  onBlur() {
+    this.$emit('blur')
   }
 }
 </script>
@@ -33,6 +49,7 @@ export default class BaseInput extends Vue {
     font-size: 20px;
     font-weight: bold;
   }
+
   input {
     margin: 12px;
     width: 300px;
@@ -46,6 +63,10 @@ export default class BaseInput extends Vue {
       color: $white;
       opacity: 0.8;
     }
+  }
+
+  .error {
+    box-shadow: inset 0 0 0 2px red;
   }
 }
 </style>

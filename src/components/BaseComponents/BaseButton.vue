@@ -21,5 +21,10 @@ export default class BaseButton extends Vue {
   border-radius: 15px;
   font-weight: bold;
   color: $white;
+
+  &:disabled {
+    background-color: $grey;
+    cursor: not-allowed;
+  }
 }
 </style>

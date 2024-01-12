@@ -2,9 +2,25 @@
   <div class="registration-view">
     <h1>Registration</h1>
 
-    <BaseInput v-model="email" label="Email" placeholder="Enter your email" id="login" />
-    <BaseInput v-model="password" label="Password" placeholder="Enter your password" id="password" />
-    <BaseButton text="Register" @click.native="register" />
+    <BaseInput
+      v-model="email"
+      label="Email"
+      placeholder="Enter your email"
+      id="login"
+      errorMessage="Email must be valid"
+      :isErrorShown="emailError"
+      @blur="errorCheck('email')"
+    />
+    <BaseInput
+      v-model="password"
+      label="Password"
+      placeholder="Enter your password"
+      id="password"
+      errorMessage="Password must be at least 8 symbols"
+      :isErrorShown="passwordError"
+      @blur="errorCheck('password')"
+    />
+    <BaseButton :isDisabled="isButtonDisabled" text="Register" @click.native="register" />
 
     <span
       >Already have an account? Then
@@ -25,17 +41,24 @@ import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
   },
 })
 export default class RegistrationView extends Vue {
+  emailError = false
+  passwordError = false
+  regExpEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+
+  get isButtonDisabled() {
+    return !this.regExpEmail.test(this.email) || this.password.length < 8
+  }
   get email(): string {
     return this.$store.state.users.email
   }
   set email(value: string) {
     this.$store.commit('users/setEmail', value)
   }
-  set password(value: string) {
-    this.$store.commit('users/setPassword', value)
-  }
   get password(): string {
     return this.$store.state.users.password
+  }
+  set password(value: string) {
+    this.$store.commit('users/setPassword', value)
   }
   async register() {
     try {
@@ -45,6 +68,13 @@ export default class RegistrationView extends Vue {
       console.log('User registered successfully:', user)
     } catch (error) {
       console.error('Registration error:', error)
+    }
+  }
+  errorCheck(type: 'password' | 'email') {
+    if (type === 'password') {
+      this.passwordError = this.password.length < 8
+    } else if (type === 'email') {
+      this.emailError = !this.regExpEmail.test(this.email)
     }
   }
 }

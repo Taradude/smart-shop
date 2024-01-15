@@ -96,8 +96,9 @@ export default class ProductItemView extends Vue {
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
+  min-height: 300px;
 }
 .carousel {
   width: 100%;

@@ -1,45 +1,43 @@
 <template>
   <header class="header">
-    <div class="top">
-      <div class="header__top">
-        <nav class="header__nav">
-          <router-link :to="{ name: 'HomeView' }"
-            ><img id="logo" src="@/assets/robot.png" alt="logo"
-          /></router-link>
-          <h1>Smart Shop</h1>
-          <div v-click-outside="hideSearchResult" class="input-wrap">
-            <input
-              :class="['input-wrap__search', { 'input-active': isFilteredProductsBySearchShown }]"
-              type="text"
-              placeholder="Search"
-              @input="onSearchInput"
-              v-model="searchValue"
-              @click="showSearchResult"
-            />
-            <div class="filtered-items" v-if="isFilteredProductsBySearchShown">
-              <p v-for="product in filteredProductsBySearch" @click="goToItem(product)" :key="product.id">
-                {{ product.title }}
-              </p>
-            </div>
+    <div class="header__top">
+      <nav class="header__nav">
+        <router-link :to="{ name: 'HomeView' }"
+          ><img id="logo" src="@/assets/robot.png" alt="logo"
+        /></router-link>
+        <h1>Smart Shop</h1>
+        <div v-click-outside="hideSearchResult" class="input-wrap">
+          <input
+            :class="['input-wrap__search', { 'input-active': isFilteredProductsBySearchShown }]"
+            type="text"
+            placeholder="Search"
+            @input="onSearchInput"
+            v-model="searchValue"
+            @click="showSearchResult"
+          />
+          <div class="filtered-items" v-if="isFilteredProductsBySearchShown">
+            <p v-for="product in filteredProductsBySearch" @click="goToItem(product)" :key="product.id">
+              {{ product.title }}
+            </p>
           </div>
+        </div>
 
-          <router-link :to="{ name: 'HomeView' }"> <h3>Home</h3> </router-link>
-          <router-link
-            :to="{
-              name: 'ProductsView',
-              params: { currentPage: '1', currentOption: $store.state.products.currentOption || 'all' },
-            }"
-          >
-            <h3>Products</h3></router-link
-          >
-          <router-link :to="{ name: 'LoginView' }"
-            ><img id="login" src="@/assets/user.png" alt="" />
-          </router-link>
-          <router-link :to="{ name: 'CartView' }">
-            <img id="cart" src="@/assets/shopping-cart2.png" alt="" /> <span>{{ cartItemsLength }}</span>
-          </router-link>
-        </nav>
-      </div>
+        <router-link :to="{ name: 'HomeView' }"> <h3>Home</h3> </router-link>
+        <router-link
+          :to="{
+            name: 'ProductsView',
+            params: { currentPage: '1', currentOption: $store.state.products.currentOption || 'all' },
+          }"
+        >
+          <h3>Products</h3></router-link
+        >
+        <router-link :to="{ name: 'LoginView' }"
+          ><img id="login" src="@/assets/user.png" alt="" />
+        </router-link>
+        <router-link :to="{ name: 'CartView' }">
+          <img id="cart" src="@/assets/shopping-cart2.png" alt="" /> <span>{{ cartItemsLength }}</span>
+        </router-link>
+      </nav>
     </div>
   </header>
 </template>
@@ -115,7 +113,7 @@ export default class TheHeader extends Vue {
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    gap: 25px;
+    gap: 24px;
   }
 }
 
@@ -214,6 +212,30 @@ a span {
       opacity: 0.9;
       color: $black;
       border-radius: 6px;
+    }
+  }
+}
+@media screen and (max-width: 600px) {
+  .header {
+    padding: 32px 24px;
+    text-align: center;
+
+    &__nav {
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    #logo {
+      height: 80px;
+      left: -20px;
+    }
+
+    .input-wrap {
+      width: 90%;
+      margin: 12px auto;
+    }
+    a {
+      padding: 6px;
     }
   }
 }

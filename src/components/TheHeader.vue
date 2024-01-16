@@ -102,6 +102,8 @@ export default class TheHeader extends Vue {
   padding: 32px 48px;
   background-color: $orange;
   text-align: left;
+  display: flex;
+  justify-content: center;
   a {
     display: flex;
     align-items: center;
@@ -112,6 +114,8 @@ export default class TheHeader extends Vue {
 
   &__nav {
     display: flex;
+    max-width: 1140px;
+    width: 100%;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
@@ -222,7 +226,7 @@ a span {
     }
   }
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 767px) {
   .header {
     padding: 32px 24px;
     text-align: center;

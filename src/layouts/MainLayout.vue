@@ -2,7 +2,9 @@
   <div class="main-layout">
     <TheHeader />
     <div class="main-layout__page">
-      <router-view />
+      <div class="main-layout__page-wrap">
+        <router-view />
+      </div>
     </div>
   </div>
 </template>
@@ -23,9 +25,17 @@ export default class MainLayout extends Vue {}
 .main-layout {
   &__page {
     padding: 64px 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    &-wrap {
+      max-width: 1140px;
+      width: 100%;
+    }
   }
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 767px) {
   .main-layout__page {
     padding: 12px;
   }

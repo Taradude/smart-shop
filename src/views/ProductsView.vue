@@ -180,7 +180,7 @@ export default class ProductsView extends Vue {
     cursor: default;
   }
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 767px) {
   .products-view__buttons {
     gap: 8px;
     margin: 0;

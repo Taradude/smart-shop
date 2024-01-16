@@ -1,44 +1,42 @@
 <template>
   <header class="header">
-    <div class="header__top">
-      <nav class="header__nav">
-        <router-link :to="{ name: 'HomeView' }"
-          ><img id="logo" src="@/assets/robot.png" alt="logo"
-        /></router-link>
-        <h1>Smart Shop</h1>
-        <div v-click-outside="hideSearchResult" class="input-wrap">
-          <input
-            :class="['input-wrap__search', { 'input-active': isFilteredProductsBySearchShown }]"
-            type="text"
-            placeholder="Search"
-            @input="onSearchInput"
-            v-model="searchValue"
-            @click="showSearchResult"
-          />
-          <div class="filtered-items" v-if="isFilteredProductsBySearchShown">
-            <p v-for="product in filteredProductsBySearch" @click="goToItem(product)" :key="product.id">
-              {{ product.title }}
-            </p>
-          </div>
+    <nav class="header__nav">
+      <router-link :to="{ name: 'HomeView' }"
+        ><img class="logo" src="@/assets/robot.png" alt="logo"
+      /></router-link>
+      <h1>Smart Shop</h1>
+      <div v-click-outside="hideSearchResult" class="input-wrap">
+        <input
+          :class="['input-wrap__search', { 'input-active': isFilteredProductsBySearchShown }]"
+          type="text"
+          placeholder="Search"
+          @input="onSearchInput"
+          v-model="searchValue"
+          @click="showSearchResult"
+        />
+        <div class="filtered-items" v-if="isFilteredProductsBySearchShown">
+          <p v-for="product in filteredProductsBySearch" @click="goToItem(product)" :key="product.id">
+            {{ product.title }}
+          </p>
         </div>
+      </div>
 
-        <router-link :to="{ name: 'HomeView' }"> <h3>Home</h3> </router-link>
-        <router-link
-          :to="{
-            name: 'ProductsView',
-            params: { currentPage: '1', currentOption: $store.state.products.currentOption || 'all' },
-          }"
-        >
-          <h3>Products</h3></router-link
-        >
-        <router-link :to="{ name: 'LoginView' }"
-          ><img id="login" src="@/assets/user.png" alt="" />
-        </router-link>
-        <router-link :to="{ name: 'CartView' }">
-          <img id="cart" src="@/assets/shopping-cart2.png" alt="" /> <span>{{ cartItemsLength }}</span>
-        </router-link>
-      </nav>
-    </div>
+      <router-link :to="{ name: 'HomeView' }"> <h3>Home</h3> </router-link>
+      <router-link
+        :to="{
+          name: 'ProductsView',
+          params: { currentPage: '1', currentOption: $store.state.products.currentOption || 'all' },
+        }"
+      >
+        <h3>Products</h3></router-link
+      >
+      <router-link :to="{ name: 'LoginView' }"
+        ><img class="login" :src="isUserLoggedIn" alt="" />
+      </router-link>
+      <router-link :to="{ name: 'CartView' }">
+        <img class="cart" src="@/assets/shopping-cart2.png" alt="" /> <span>{{ cartItemsLength }}</span>
+      </router-link>
+    </nav>
   </header>
 </template>
 
@@ -64,6 +62,10 @@ export default class TheHeader extends Vue {
 
   get isFilteredProductsBySearchShown() {
     return this.filteredProductsBySearch.length > 0 && this.filteredProductSwitch
+  }
+
+  get isUserLoggedIn() {
+    return this.$store.state.users.email ? require('@/assets/loggedIn.png') : require('@/assets/user.png')
   }
   created() {
     Vue.use(vClickOutside)
@@ -117,7 +119,7 @@ export default class TheHeader extends Vue {
   }
 }
 
-#logo {
+.logo {
   height: 140px;
   position: absolute;
   left: -40px;
@@ -132,8 +134,8 @@ export default class TheHeader extends Vue {
   flex-wrap: wrap;
 }
 
-#cart,
-#login {
+.cart,
+.login {
   width: 50px;
   height: 50px;
   transition: all 0.25s ease-in-out;
@@ -141,6 +143,11 @@ export default class TheHeader extends Vue {
   &:hover {
     transform: scale(1.1);
   }
+}
+.loggedIn {
+  background-image: url('@/assets/loggedIn.png');
+  width: 100%;
+  height: 100%;
 }
 
 .input-wrap {
@@ -225,7 +232,7 @@ a span {
       gap: 15px;
     }
 
-    #logo {
+    .logo {
       height: 80px;
       left: -20px;
     }

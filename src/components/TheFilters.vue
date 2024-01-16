@@ -9,7 +9,8 @@
       @click="clearOptions"
     />
     <div class="filters__price">
-      <p>Price from:</p>
+      <p>Price from: {{ min }}</p>
+      <p>Price to: {{ max }}</p>
       <BaseInputRange
         :value="priceRange"
         :min="min"
@@ -64,5 +65,12 @@ export default class TheFilters extends Vue {
   flex-direction: row;
   justify-content: flex-end;
   gap: 48px;
+  align-items: center;
+
+  &__price {
+    p {
+      padding: 12px;
+    }
+  }
 }
 </style>

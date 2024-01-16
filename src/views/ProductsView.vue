@@ -1,6 +1,7 @@
 <template>
   <div class="products-view">
     <TheFilters
+      class="products-view__filters"
       :priceRange="priceRangeGetter"
       :min="min"
       :max="max"
@@ -20,7 +21,7 @@
       </div>
     </div>
     <div class="products-view__buttons">
-      <BaseButton :isDisabled="isPrevButtonDisabled" text="Previous page" @click.native="prevPage" />
+      <BaseButton :isDisabled="isPrevButtonDisabled" text="Prev page" @click.native="prevPage" />
       <div
         v-for="item in pagesAmount"
         :key="item"
@@ -147,6 +148,11 @@ export default class ProductsView extends Vue {
     grid-template-columns: repeat(auto-fill, minmax(250px, 300px));
     gap: 16px;
   }
+  &__filters {
+    width: 90%;
+    margin: 0 auto;
+  }
+
   &__buttons {
     padding: 16px;
     display: flex;
@@ -174,7 +180,12 @@ export default class ProductsView extends Vue {
     cursor: default;
   }
 }
-
+@media screen and (max-width: 600px) {
+  .products-view__buttons {
+    gap: 8px;
+    margin: 0;
+  }
+}
 .product {
   display: grid;
   grid-template-rows: auto;

@@ -23,7 +23,11 @@ export default class MainLayout extends Vue {}
 .main-layout {
   &__page {
     padding: 64px 48px;
-    overflow-x: hidden;
+  }
+}
+@media screen and (max-width: 600px) {
+  .main-layout__page {
+    padding: 12px;
   }
 }
 </style>

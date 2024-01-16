@@ -21,21 +21,24 @@
         </div>
       </div>
 
-      <router-link :to="{ name: 'HomeView' }"> <h3>Home</h3> </router-link>
-      <router-link
-        :to="{
-          name: 'ProductsView',
-          params: { currentPage: '1', currentOption: $store.state.products.currentOption || 'all' },
-        }"
-      >
-        <h3>Products</h3></router-link
-      >
-      <router-link :to="{ name: 'LoginView' }"
-        ><img class="login" :src="isUserLoggedIn" alt="" />
-      </router-link>
-      <router-link :to="{ name: 'CartView' }">
-        <img class="cart" src="@/assets/shopping-cart2.png" alt="" /> <span>{{ cartItemsLength }}</span>
-      </router-link>
+      <div class="link-wrap">
+        <router-link :to="{ name: 'HomeView' }"> <h3>Home</h3> </router-link>
+        <router-link
+          :to="{
+            name: 'ProductsView',
+            params: { currentPage: '1', currentOption: $store.state.products.currentOption || 'all' },
+          }"
+        >
+          <h3>Products</h3></router-link
+        >
+
+        <router-link :to="{ name: 'LoginView' }"
+          ><img class="login" :src="isUserLoggedIn" alt="" />
+        </router-link>
+        <router-link :to="{ name: 'CartView' }">
+          <img class="cart" src="@/assets/shopping-cart2.png" alt="" /> <span>{{ cartItemsLength }}</span>
+        </router-link>
+      </div>
     </nav>
   </header>
 </template>
@@ -117,7 +120,7 @@ export default class TheHeader extends Vue {
     max-width: 1140px;
     width: 100%;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     gap: 24px;
   }
@@ -137,7 +140,10 @@ export default class TheHeader extends Vue {
   display: flex;
   flex-wrap: wrap;
 }
-
+.link-wrap {
+  display: flex;
+  gap: 28px;
+}
 .cart,
 .login {
   width: 50px;
@@ -227,6 +233,9 @@ a span {
   }
 }
 @media screen and (max-width: 767px) {
+  .link-wrap {
+    gap: 12px;
+  }
   .header {
     padding: 32px 24px;
     text-align: center;

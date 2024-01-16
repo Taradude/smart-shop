@@ -41,7 +41,6 @@ export default class LoginView extends Vue {
       const auth = getAuth()
       const userCredential = await signInWithEmailAndPassword(auth, this.email, this.password)
       const user = userCredential.user
-      console.log('User logged in successfully:', user)
       router.push('/')
     } catch (error) {
       console.error('Login error:', error)

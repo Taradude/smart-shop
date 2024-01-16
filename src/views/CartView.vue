@@ -101,7 +101,7 @@ export default class CartView extends Vue {
       height: 100%;
       align-items: center;
       display: flex;
-      gap: 64px;
+      gap: 24px;
       justify-content: center;
     }
     button {
@@ -121,6 +121,14 @@ export default class CartView extends Vue {
       flex: 1;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .cart-item {
+      padding: 0;
+    }
+    .cart-item__buttons {
+      gap: 8px;
     }
   }
 }

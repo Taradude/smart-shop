@@ -19,6 +19,7 @@
       errorMessage="Password must be at least 8 symbols"
       :isErrorShown="passwordError"
       @blur="errorCheck('password')"
+      type="password"
     />
     <BaseButton :isDisabled="isButtonDisabled" text="Register" @click.native="register" />
 

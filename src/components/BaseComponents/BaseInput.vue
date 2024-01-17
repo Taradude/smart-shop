@@ -8,7 +8,7 @@
       :name="id"
       :placeholder="placeholder"
       :value="value"
-      type="text"
+      :type="type"
       @input="onInput"
       @blur="onBlur"
     />
@@ -28,6 +28,7 @@ export default class BaseInput extends Vue {
   @Prop({ default: '' }) id!: string
   @Prop({ default: '' }) errorMessage!: string
   @Prop({ default: '' }) isErrorShown!: boolean
+  @Prop({ default: 'text' }) type!: string
 
   onInput(event: Event): void {
     const target = event.target as HTMLInputElement

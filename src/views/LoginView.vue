@@ -2,7 +2,13 @@
   <div class="login-view">
     <h1>Login</h1>
     <BaseInput v-model="email" label="Email" placeholder="Enter your email" id="login" />
-    <BaseInput v-model="password" label="Password" placeholder="Enter your password" id="password" />
+    <BaseInput
+      v-model="password"
+      label="Password"
+      placeholder="Enter your password"
+      id="password"
+      type="password"
+    />
     <BaseButton text="Login" @click.native="login" />
 
     <span
@@ -35,12 +41,14 @@ export default class LoginView extends Vue {
   get password(): string {
     return this.$store.state.users.password
   }
+  set password(value: string) {
+    this.$store.commit('users/setPassword', value)
+  }
 
   async login() {
     try {
       const auth = getAuth()
-      const userCredential = await signInWithEmailAndPassword(auth, this.email, this.password)
-      const user = userCredential.user
+      await signInWithEmailAndPassword(auth, this.email, this.password)
       router.push('/')
     } catch (error) {
       console.error('Login error:', error)
